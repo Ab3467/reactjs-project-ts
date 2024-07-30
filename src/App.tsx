@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ProSideBar from "./components/ProjectSideBar";
 import NoProSelect from "./components/NoProjectSelected";
 import NewProject from "./components/NewProject";
