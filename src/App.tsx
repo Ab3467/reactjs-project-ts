@@ -1,10 +1,12 @@
-import "./App.css";
-import { Button } from "./components/ui/button";
+import React from "react";
+import ProjectSideBar from "./components/ProjectSideBar";
 
-function App() {
-  return <>
-  <Button>Click me</Button>
-  </>;
-}
+const App: React.FC = () => {
+  return (
+    <div className=" h-screen my-8 flex gap-8 font-mono">
+      <ProjectSideBar />
+    </div>
+  );
+};
 
 export default App;
