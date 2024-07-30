@@ -1,12 +1,16 @@
 import { useRef, FormEvent } from "react";
+import Modal from "./Modal";
 import Input from "./Input";
 import { Button } from "./ui/button";
-import Modal from "./Modal";
 
-export default function NewProject({onAdd,onCancel}: {
+export default function NewProject({
+  onAdd,
+  onCancel,
+}: {
   onAdd: (project: { title: string; description: string; duedate: string }) => void;
   onCancel: () => void;
 }) {
+  // Check that these refs are working as expected
   const modal = useRef<{ open: () => void }>(null);
   const Title = useRef<HTMLInputElement>(null);
   const Description = useRef<HTMLTextAreaElement>(null);

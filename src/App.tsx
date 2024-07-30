@@ -3,17 +3,17 @@ import ProjectSideBar from "./components/ProjectSideBar";
 import NoProjectSelected from "./components/NoProjectSelected";
 import NewProject from "./components/NewProject";
 import SelectedProject from "./components/SelectedProject";
-import {Project, Task} from "./components/Types"
+import { Project, Task } from "./components/Types";
 
 type ProjectState = {
-  setProjectsId: number | undefined;
+  setProjectsId: number | undefined; // Use only number or undefined
   projects: Project[];
   tasks: Task[];
 };
 
 export default function App() {
   const [projectState, setProjectState] = useState<ProjectState>({
-    setProjectsId: undefined,
+    setProjectsId: undefined, // Initialize as undefined
     projects: [],
     tasks: [],
   });
@@ -28,7 +28,7 @@ export default function App() {
       const TaskId = Date.now();
       const newTask: Task = {
         text,
-        ProId: prevState.setProjectsId,
+        ProId: prevState.setProjectsId, // This should be number or undefined
         id: TaskId,
       };
 
@@ -47,9 +47,10 @@ export default function App() {
   }
 
   function handleStartAddPro() {
+    console.log("Starting new project");
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined,
+      setProjectsId: undefined, // Use undefined instead of null
     }));
   }
 
@@ -63,14 +64,14 @@ export default function App() {
   function handleCancel() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined,
+      setProjectsId: undefined, // Use undefined instead of null
     }));
   }
 
   function handleDelete() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined,
+      setProjectsId: undefined, // Use undefined instead of null
       projects: prevState.projects.filter(
         (project) => project.id !== (prevState.setProjectsId ?? -1)
       ),
@@ -86,7 +87,7 @@ export default function App() {
       };
       return {
         ...prevState,
-        setProjectsId: undefined,
+        setProjectsId: undefined, // Use undefined instead of null
         projects: [...prevState.projects, newPro],
       };
     });
@@ -120,7 +121,7 @@ export default function App() {
         onSelectProj={handleSelectProj}
         onStartAddProject={handleStartAddPro}
         projects={projectState.projects}
-        selectedProId={projectState.setProjectsId}
+        selectedProId={projectState.setProjectsId} // Ensure this is number or undefined
       />
       {content}
     </main>

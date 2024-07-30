@@ -9,6 +9,7 @@ export type Project = {
   export type Task = {
     id: number;
     text: string;
-    ProId: number | undefined;
+    ProId: number | undefined | null; // Allow null if needed
   };
+  
   
