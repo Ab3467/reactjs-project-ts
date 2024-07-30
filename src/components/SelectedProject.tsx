@@ -1,36 +1,25 @@
-import React from "react";
+import { Project, Task } from "./Types"
 import Tasks from "./Tasks";
 
-// Define types for project and task
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  duedate: string;
-};
-
-type Task = {
-  id: number;
-  text: string;
-  ProId: number | undefined;
-};
-
-// Define types for props
-type SelectedProProps = {
-  project: Project;
+type SelectedProjectProps = {
+  project?: Project; // Make project optional
   onDelete: () => void;
   onAddTask: (text: string) => void;
   onDeleteTask: (id: number) => void;
   tasks: Task[];
 };
 
-const SelectedProject: React.FC<SelectedProProps> = ({
+export default function SelectedProject({
   project,
   onDelete,
   onAddTask,
   onDeleteTask,
   tasks,
-}) => {
+}: SelectedProjectProps) {
+  if (!project) {
+    return <p>No project selected</p>; // Handle it as needed
+  }
+
   const formatDate = new Date(project.duedate).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -59,6 +48,4 @@ const SelectedProject: React.FC<SelectedProProps> = ({
       <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={tasks} />
     </div>
   );
-};
-
-export default SelectedProject;
+}
