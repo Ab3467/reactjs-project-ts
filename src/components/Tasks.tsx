@@ -1,5 +1,6 @@
 import React from "react";
 import NewTask from "./NewTask";
+import { Button } from "./ui/button";
 
 // Define the type for a task
 type Task = {
@@ -29,12 +30,12 @@ const Tasks: React.FC<TasksProps> = ({ onAdd, onDelete, tasks }) => {
           {tasks.map((task) => (
             <li key={task.id} className="flex justify-between my-4">
               <span>{task.text}</span>
-              <button
+              <Button
                 className="text-stone-700 hover:text-red-500"
                 onClick={() => onDelete(task.id)}
               >
                 Clear
-              </button>
+              </Button>
             </li>
           ))}
         </ul>

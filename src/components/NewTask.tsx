@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { Button } from "./ui/button";
 
 // Define the type for the props
 type NewTaskProps = {
@@ -28,12 +29,12 @@ const NewTask: React.FC<NewTaskProps> = ({ onAdd }) => {
         onChange={handleChange}
         value={enteredTask}
       />
-      <button
+      <Button
         className="text-stone-700 hover:text-stone-950"
         type="submit"
       >
         Add task
-      </button>
+      </Button>
     </form>
   );
 };
