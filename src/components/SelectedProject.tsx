@@ -1,5 +1,6 @@
 import { Project, Task } from "./Types"
 import Tasks from "./Tasks";
+import { Button } from "./ui/button";
 
 type SelectedProjectProps = {
   project?: Project; // Make project optional
@@ -33,12 +34,12 @@ export default function SelectedProject({
           <h1 className="text-3xl font-bold text-stone-600 mb-2">
             {project.title}
           </h1>
-          <button
+          <Button
             className="text-stone-600 hover:text-stone-950"
             onClick={onDelete}
           >
             Delete
-          </button>
+          </Button>
         </div>
         <p className="mb-4 text-stone-400">{formatDate}</p>
         <p className="text-stone-600 whitespace-pre-wrap">

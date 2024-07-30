@@ -1,5 +1,5 @@
 import { Project } from "./Types";
-
+import { Button } from "./ui/button";
 
 type ProSideBarProps = {
   onSelectProj: (id: number) => void;
@@ -16,12 +16,13 @@ export default function ProjectSideBar({
 }: ProSideBarProps) {
   return (
     <aside className="w-64 bg-stone-200 p-4">
-      <button
+        <h2 className="text-xl font-bold text-stone-500 my-4">Your Projects</h2>
+      <Button
         className="w-full py-2 bg-stone-300 text-stone-700 hover:bg-stone-400"
         onClick={onStartAddProject}
       >
         Add New Project
-      </button>
+      </Button>
       <ul className="mt-4">
         {projects.map((project) => (
           <li
