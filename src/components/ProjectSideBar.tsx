@@ -1,57 +1,38 @@
-import React from "react";
-import { Button } from "./ui/button";
+import { Project } from "./Types";
 
-type Project = {
-  id: number;
-  title: string; 
-};
 
 type ProSideBarProps = {
+  onSelectProj: (id: number) => void;
   onStartAddProject: () => void;
   projects: Project[];
-  onSelectProj: (id: number) => void;
-  selectedProId: number | undefined;
+  selectedProId: number | undefined; // Use `number | undefined`
 };
 
-const ProjectSideBar: React.FC<ProSideBarProps> = ({
+export default function ProjectSideBar({
+  onSelectProj,
   onStartAddProject,
   projects,
-  onSelectProj,
   selectedProId,
-}) => {
-
+}: ProSideBarProps) {
   return (
-    <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
-      <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">
-        Your Projects
-      </h2>
-      <div>
-        <Button onClick={onStartAddProject}>+ Add Project</Button>
-      </div>
-      <ul className="mt-8">
-        {projects.map((project) => {
-          let cssClasses =
-            "w-full text-left px-2 py-1 rounded-sm my-1 hover:bg-stone-800 hover:text-stone-200";
-          if (project.id === selectedProId) {
-            cssClasses += " bg-stone-800 text-stone-200";
-          } else {
-            cssClasses += " text-stone-400";
-          }
-
-          return (
-            <li key={project.id}>
-              <button
-                onClick={() => onSelectProj(project.id)}
-                className={cssClasses}
-              >
-                {project.title}
-              </button>
-            </li>
-          );
-        })}
+    <aside className="w-64 bg-stone-200 p-4">
+      <button
+        className="w-full py-2 bg-stone-300 text-stone-700 hover:bg-stone-400"
+        onClick={onStartAddProject}
+      >
+        Add New Project
+      </button>
+      <ul className="mt-4">
+        {projects.map((project) => (
+          <li
+            key={project.id}
+            className={`py-2 px-4 cursor-pointer ${selectedProId === project.id ? 'bg-stone-300' : ''}`}
+            onClick={() => onSelectProj(project.id)}
+          >
+            {project.title}
+          </li>
+        ))}
       </ul>
     </aside>
   );
-};
-
-export default ProjectSideBar;
+}

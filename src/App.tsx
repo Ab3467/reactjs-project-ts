@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ProjectSideBar from "./components/ProjectSideBar";
 import NoProjectSelected from "./components/NoProjectSelected";
 import NewProject from "./components/NewProject";
 import SelectedProject from "./components/SelectedProject";
-import { Project, Task } from './types'; // Import the same types
+import {Project, Task} from "./components/Types"
 
 type ProjectState = {
-  setProjectsId: number | null | undefined;
+  setProjectsId: number | undefined;
   projects: Project[];
   tasks: Task[];
 };
@@ -25,7 +25,7 @@ export default function App() {
     }
 
     setProjectState((prevState) => {
-      const TaskId = Date.now(); // Use Date.now() for unique task IDs
+      const TaskId = Date.now();
       const newTask: Task = {
         text,
         ProId: prevState.setProjectsId,
@@ -49,7 +49,7 @@ export default function App() {
   function handleStartAddPro() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: null,
+      setProjectsId: undefined,
     }));
   }
 
@@ -79,7 +79,7 @@ export default function App() {
 
   function handleAddProject(projectData: Omit<Project, 'id'>) {
     setProjectState((prevState) => {
-      const ProId = Date.now(); // Use Date.now() for unique project IDs
+      const ProId = Date.now();
       const newPro: Project = {
         ...projectData,
         id: ProId,
@@ -98,14 +98,14 @@ export default function App() {
 
   let content;
 
-  if (projectState.setProjectsId === null) {
-    content = <NewProject onAdd={handleAddProject} onCancel={handleCancel} />;
-  } else if (projectState.setProjectsId === undefined) {
+  if (projectState.setProjectsId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddPro} />;
+  } else if (projectState.setProjectsId === null) {
+    content = <NewProject onAdd={handleAddProject} onCancel={handleCancel} />;
   } else {
     content = (
       <SelectedProject
-        project={selectedProject} 
+        project={selectedProject}
         onDelete={handleDelete}
         onAddTask={handleAddTask}
         onDeleteTask={handleDeleteTask}
@@ -118,7 +118,7 @@ export default function App() {
     <main className="h-screen my-8 flex gap-8 font-mono">
       <ProjectSideBar
         onSelectProj={handleSelectProj}
-        onstartAddProject={handleStartAddPro}
+        onStartAddProject={handleStartAddPro}
         projects={projectState.projects}
         selectedProId={projectState.setProjectsId}
       />
