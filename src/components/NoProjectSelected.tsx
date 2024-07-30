@@ -8,7 +8,7 @@ const NoProjectSelected : React.FC = () => {
         <img src={Image} alt="Img" className=' w-16 h-16 object-contain mx-auto'/>
         <h2 className='text-xl font-bold text-stone-500 my-4'>No Project Selected</h2>
         <p className='text-stone-400 mb-4'>Select a project or start with a new one</p>
-        <Button>Create New Project</Button>
+        <Button variant="secondary" size="default">Create New Project</Button>
     </div>
   )
 }
