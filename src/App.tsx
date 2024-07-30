@@ -1,19 +1,31 @@
 import { useState } from "react";
-import ProjectSideBar from "./components/ProjectSideBar";
-import NoProjectSelected from "./components/NoProjectSelected";
+import ProSideBar from "./components/ProjectSideBar";
+import NoProSelect from "./components/NoProjectSelected";
 import NewProject from "./components/NewProject";
-import SelectedProject from "./components/SelectedProject";
-import { Project, Task } from "./components/Types";
+import SelectedPro from "./components/SelectedProject";
 
-type ProjectState = {
-  setProjectsId: number | undefined; // Use only number or undefined
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  duedate: string;
+}
+
+interface Task {
+  id: number;
+  text: string;
+  ProId: number; // ProId must always be a number
+}
+
+interface ProjectState {
+  setProjectsId: number | null; // Use number | null instead of number | null | undefined
   projects: Project[];
   tasks: Task[];
-};
+}
 
 export default function App() {
   const [projectState, setProjectState] = useState<ProjectState>({
-    setProjectsId: undefined, // Initialize as undefined
+    setProjectsId: null, // Initialize with null
     projects: [],
     tasks: [],
   });
@@ -25,16 +37,16 @@ export default function App() {
     }
 
     setProjectState((prevState) => {
-      const TaskId = Date.now();
+      const TaskId = Math.random();
       const newTask: Task = {
-        text,
-        ProId: prevState.setProjectsId, // This should be number or undefined
+        text: text,
+        ProId: prevState.setProjectsId !== null ? prevState.setProjectsId : -1, // Handle null case
         id: TaskId,
       };
 
       return {
         ...prevState,
-        tasks: [newTask, ...prevState.tasks],
+        tasks: [newTask, ...(prevState.tasks || [])],
       };
     });
   }
@@ -47,10 +59,9 @@ export default function App() {
   }
 
   function handleStartAddPro() {
-    console.log("Starting new project");
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined, // Use undefined instead of null
+      setProjectsId: null,
     }));
   }
 
@@ -64,30 +75,30 @@ export default function App() {
   function handleCancel() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined, // Use undefined instead of null
+      setProjectsId: null,
     }));
   }
 
   function handleDelete() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined, // Use undefined instead of null
+      setProjectsId: null,
       projects: prevState.projects.filter(
-        (project) => project.id !== (prevState.setProjectsId ?? -1)
+        (project) => project.id !== prevState.setProjectsId
       ),
     }));
   }
 
-  function handleAddProject(projectData: Omit<Project, 'id'>) {
+  function handleAddProject(projectData: Omit<Project, "id">) {
     setProjectState((prevState) => {
-      const ProId = Date.now();
+      const ProId = Math.random();
       const newPro: Project = {
         ...projectData,
         id: ProId,
       };
       return {
         ...prevState,
-        setProjectsId: undefined, // Use undefined instead of null
+        setProjectsId: null,
         projects: [...prevState.projects, newPro],
       };
     });
@@ -99,29 +110,29 @@ export default function App() {
 
   let content;
 
-  if (projectState.setProjectsId === undefined) {
-    content = <NoProjectSelected onStartAddProject={handleStartAddPro} />;
-  } else if (projectState.setProjectsId === null) {
+  if (projectState.setProjectsId === null) {
     content = <NewProject onAdd={handleAddProject} onCancel={handleCancel} />;
+  } else if (projectState.setProjectsId === undefined) {
+    content = <NoProSelect onstartAddProject={handleStartAddPro} />;
   } else {
     content = (
-      <SelectedProject
-        project={selectedProject}
+      <SelectedPro
+        project={selectedProject!}
         onDelete={handleDelete}
         onAddTask={handleAddTask}
         onDeleteTask={handleDeleteTask}
-        tasks={projectState.tasks}
+        tasks={projectState.tasks.filter(task => task.ProId === projectState.setProjectsId!)} // Ensure setProjectsId is not undefined
       />
     );
   }
 
   return (
-    <main className="h-screen my-8 flex gap-8 font-mono">
-      <ProjectSideBar
+    <main className="h-screen my-8 flex gap-8">
+      <ProSideBar
         onSelectProj={handleSelectProj}
         onStartAddProject={handleStartAddPro}
         projects={projectState.projects}
-        selectedProId={projectState.setProjectsId} // Ensure this is number or undefined
+        selectedProId={projectState.setProjectsId}
       />
       {content}
     </main>

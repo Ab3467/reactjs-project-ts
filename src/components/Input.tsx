@@ -1,34 +1,39 @@
-import { forwardRef, TextareaHTMLAttributes, InputHTMLAttributes, Ref } from 'react';
+import React from "react";
 
-// Define a type for the props, differentiating between input and textarea
-type InputProps = {
+interface InputProps {
+  type: string;
   label: string;
-  textarea?: boolean;
-} & (InputHTMLAttributes<HTMLInputElement> | TextareaHTMLAttributes<HTMLTextAreaElement>);
+  id: string;
+}
 
-const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
-  function Input({ label, textarea, ...props }, ref) {
-    // Use ref typecasting based on whether it's textarea or input
-    const isTextArea = textarea;
+const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
+  ({ type, label, id }, ref) => {
+    if (type === "textarea") {
+      return (
+        <div className="mb-4">
+          <label htmlFor={id} className="block mb-1 text-stone-500 font-bold">
+            {label}
+          </label>
+          <textarea
+            id={id}
+            ref={ref as React.Ref<HTMLTextAreaElement>}
+            className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
+          />
+        </div>
+      );
+    }
 
     return (
-      <div className="flex flex-col gap-1 my-4">
-        <label className="text-sm font-bold uppercase text-stone-500">
+      <div className="mb-4">
+        <label htmlFor={id} className="block mb-1 text-stone-500 font-bold">
           {label}
         </label>
-        {isTextArea ? (
-          <textarea
-            ref={ref as Ref<HTMLTextAreaElement>}
-            className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-300 text-stone-600 focus:outline-none focus:border-stone-600"
-            {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-          />
-        ) : (
-          <input
-            ref={ref as Ref<HTMLInputElement>}
-            className="w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-300 text-stone-600 focus:outline-none focus:border-stone-600"
-            {...(props as InputHTMLAttributes<HTMLInputElement>)}
-          />
-        )}
+        <input
+          type={type}
+          id={id}
+          ref={ref as React.Ref<HTMLInputElement>}
+          className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
+        />
       </div>
     );
   }

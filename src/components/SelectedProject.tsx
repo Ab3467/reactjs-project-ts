@@ -1,52 +1,59 @@
-import { Project, Task } from "./Types"
+import React, { useRef } from "react";
 import Tasks from "./Tasks";
 import { Button } from "./ui/button";
+import { Project, Task as TaskType } from "./Types";
 
-type SelectedProjectProps = {
-  project?: Project; // Make project optional
+interface SelectedProProps {
+  project: Project;
   onDelete: () => void;
   onAddTask: (text: string) => void;
   onDeleteTask: (id: number) => void;
-  tasks: Task[];
-};
+  tasks: TaskType[];
+}
 
-export default function SelectedProject({
+const SelectedPro: React.FC<SelectedProProps> = ({
   project,
   onDelete,
   onAddTask,
   onDeleteTask,
   tasks,
-}: SelectedProjectProps) {
-  if (!project) {
-    return <p>No project selected</p>; // Handle it as needed
-  }
+}) => {
+  const taskInputRef = useRef<HTMLInputElement>(null);
 
-  const formatDate = new Date(project.duedate).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  const handleAddTask = () => {
+    const taskText = taskInputRef.current?.value ?? "";
+    onAddTask(taskText);
+    if (taskInputRef.current) taskInputRef.current.value = "";
+  };
 
   return (
-    <div className="w-[35rem] mt-16">
-      <header className="pb-4 mb-4 border-b-2 border-stone-300">
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold text-stone-600 mb-2">
-            {project.title}
-          </h1>
-          <Button
-            className="text-stone-600 hover:text-stone-950"
-            onClick={onDelete}
-          >
-            Delete
-          </Button>
-        </div>
-        <p className="mb-4 text-stone-400">{formatDate}</p>
-        <p className="text-stone-600 whitespace-pre-wrap">
-          {project.description}
-        </p>
-      </header>
-      <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={tasks} />
+    <div className="w-2/3 h-full bg-stone-50 px-12 py-16 rounded-xl">
+      <div className="flex items-center gap-4">
+        <h2 className="font-bold text-stone-500 text-lg">{project.title}</h2>
+        <Button onClick={onDelete}>Delete</Button>
+      </div>
+      <p className="text-stone-400 my-2">{project.description}</p>
+      <p className="text-stone-200 text-sm">{project.duedate}</p>
+
+      <hr className="my-6 border-0 h-px bg-stone-300" />
+
+      <div className="flex gap-2">
+        <input
+          type="text"
+          ref={taskInputRef}
+          placeholder="New task"
+          className="w-full py-2 px-4 rounded-md bg-stone-100 text-stone-800"
+        />
+        <Button onClick={handleAddTask}>Add</Button>
+      </div>
+
+      <ul className="mt-8">
+        {tasks.map((task) => (
+          <Tasks key={task.id} task={task} onDeleteTask={onDeleteTask} />
+        ))}
+      </ul>
     </div>
   );
-}
+};
+
+export default SelectedPro;
