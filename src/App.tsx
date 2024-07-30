@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import ProSideBar from "./components/ProjectSideBar";
 import NoProSelect from "./components/NoProjectSelected";
 import NewProject from "./components/NewProject";
@@ -14,18 +14,18 @@ interface Project {
 interface Task {
   id: number;
   text: string;
-  ProId: number; // ProId must always be a number
+  ProId: number;
 }
 
 interface ProjectState {
-  setProjectsId: number | null; // Use number | null instead of number | null | undefined
+  setProjectsId: number | null | undefined;
   projects: Project[];
   tasks: Task[];
 }
 
 export default function App() {
   const [projectState, setProjectState] = useState<ProjectState>({
-    setProjectsId: null, // Initialize with null
+    setProjectsId: undefined,
     projects: [],
     tasks: [],
   });
@@ -40,7 +40,7 @@ export default function App() {
       const TaskId = Math.random();
       const newTask: Task = {
         text: text,
-        ProId: prevState.setProjectsId !== null ? prevState.setProjectsId : -1, // Handle null case
+        ProId: prevState.setProjectsId !== undefined ? prevState.setProjectsId : -1, // Handle undefined case
         id: TaskId,
       };
 
@@ -75,14 +75,14 @@ export default function App() {
   function handleCancel() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: null,
+      setProjectsId: undefined,
     }));
   }
 
   function handleDelete() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: null,
+      setProjectsId: undefined,
       projects: prevState.projects.filter(
         (project) => project.id !== prevState.setProjectsId
       ),
@@ -98,7 +98,7 @@ export default function App() {
       };
       return {
         ...prevState,
-        setProjectsId: null,
+        setProjectsId: undefined,
         projects: [...prevState.projects, newPro],
       };
     });
@@ -121,13 +121,13 @@ export default function App() {
         onDelete={handleDelete}
         onAddTask={handleAddTask}
         onDeleteTask={handleDeleteTask}
-        tasks={projectState.tasks.filter(task => task.ProId === projectState.setProjectsId!)} // Ensure setProjectsId is not undefined
+        tasks={projectState.tasks.filter(task => task.ProId === projectState.setProjectsId)}
       />
     );
   }
 
   return (
-    <main className="h-screen my-8 flex gap-8">
+    <main className="h-screen my-8 flex gap-8 font-serif">
       <ProSideBar
         onSelectProj={handleSelectProj}
         onStartAddProject={handleStartAddPro}

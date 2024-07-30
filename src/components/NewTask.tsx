@@ -30,7 +30,6 @@ const NewTask: React.FC<NewTaskProps> = ({ onAdd }) => {
         value={enteredTask}
       />
       <Button
-        className="text-stone-700 hover:text-stone-950"
         type="submit"
       >
         Add task
