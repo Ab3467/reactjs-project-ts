@@ -30,10 +30,7 @@ const Tasks: React.FC<TasksProps> = ({ onAdd, onDelete, tasks }) => {
           {tasks.map((task) => (
             <li key={task.id} className="flex justify-between my-4">
               <span>{task.text}</span>
-              <Button
-                className="text-stone-700 hover:text-red-500"
-                onClick={() => onDelete(task.id)}
-              >
+              <Button variant="outline" onClick={() => onDelete(task.id)}>
                 Clear
               </Button>
             </li>
