@@ -3,7 +3,11 @@ import Input from "./Input";
 import Modal from "./Modal";
 
 interface NewProjectProps {
-  onAdd: (projectData: { title: string; description: string; duedate: string }) => void;
+  onAdd: (projectData: {
+    title: string;
+    description: string;
+    duedate: string;
+  }) => void;
   onCancel: () => void;
 }
 
@@ -19,7 +23,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     const EnteredDes = Description.current?.value ?? "";
     const EnteredDueD = Duedate.current?.value ?? "";
 
-    if (EnteredTitle.trim() === "" || EnteredDes.trim() === "" || EnteredDueD.trim() === "") {
+    if (
+      EnteredTitle.trim() === "" ||
+      EnteredDes.trim() === "" ||
+      EnteredDueD.trim() === ""
+    ) {
       setIsModalOpen(true);
       return;
     }
@@ -37,7 +45,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
 
   return (
     <>
-      <Modal btnCaption="Ok" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Modal
+        btnCaption="Ok"
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
