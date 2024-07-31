@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Input as ShadcnInput } from "@/components/ui/input"; // Adjust the import path if necessary
 import Modal from "./Modal";
+import { Button } from "react-day-picker";
 
 type NewProjectProps = {
   onAdd: (projectData: {
@@ -54,21 +55,21 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
-            <button
+            <Button
               className="text-stone-800 hover:text-stone-950"
               onClick={onCancel}
               type="button"
             >
               Cancel
-            </button>
+            </Button>
           </li>
           <li>
-            <button
+            <Button
               type="submit"
               className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950"
             >
               Save
-            </button>
+            </Button>
           </li>
         </menu>
         <div>
