@@ -33,7 +33,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
   };
 
   return (
-    <div className="w-2/3 h-full bg-stone-50 px-12 py-16 rounded-xl">
+    <div className={twMerge("w-2/3 h-full bg-stone-50 px-12 py-16 rounded-xl")}>
       <div className="flex items-center gap-4">
         <h2 className="font-bold text-stone-500 text-lg">{project.title}</h2>
         <Button onClick={onDelete} variant="secondary">Delete Project</Button>
@@ -48,7 +48,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
           type="text"
           ref={taskInputRef}
           placeholder="New task"
-          className="w-full py-2 px-4 rounded-md bg-stone-100 text-stone-800"
+          className={twMerge("w-full py-2 px-4 rounded-md bg-stone-100 text-stone-800")}
         />
         <Button type="submit" variant="ghost">Add</Button>
       </form>
