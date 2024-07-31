@@ -1,31 +1,40 @@
-import React, { ForwardedRef } from "react";
+import React from 'react';
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 interface ModalProps {
   btnCaption: string;
-  children: React.ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-const Modal = React.forwardRef<HTMLDialogElement, ModalProps>(
-  ({ btnCaption, children }, ref: ForwardedRef<HTMLDialogElement>) => {
-    const handleClose = () => {
-      if (ref && typeof ref !== "function") {
-        (ref as React.RefObject<HTMLDialogElement>).current?.close();
-      }
-    };
-
-    return (
-      <dialog ref={ref} className="modal">
-        <div className="modal-content">
-          {children}
-          <div className="modal-footer">
-            <button className="modal-btn" onClick={handleClose}>
-              {btnCaption}
-            </button>
-          </div>
-        </div>
-      </dialog>
-    );
-  }
-);
+const Modal: React.FC<ModalProps> = ({ btnCaption, isOpen, onClose }) => {
+  return (
+    <AlertDialog open={isOpen} onOpenChange={onClose}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Invalid Input</AlertDialogTitle>
+          <AlertDialogDescription>
+            Oops... Looks like you forgot to enter a value.
+            Please make sure you provided a valid value for every input field.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Close</AlertDialogCancel>
+          <AlertDialogAction onClick={onClose}>{btnCaption}</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};
 
 export default Modal;
