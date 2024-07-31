@@ -1,7 +1,9 @@
 import React, { useRef, useState } from "react";
 import { Input as ShadcnInput } from "@/components/ui/input"; // Adjust the import path if necessary
 import Modal from "./Modal";
-import { Button } from "react-day-picker";
+import { Button } from "./ui/button"; // Adjust the import path if necessary
+import { DayPicker, DayPickerProps } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
 type NewProjectProps = {
   onAdd: (projectData: {
@@ -44,6 +46,13 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     if (Description.current) Description.current.value = "";
     setDueDate("");
   }
+
+  const dayPickerInitialProps: DayPickerProps = {
+    mode: "single",
+    selected: dueDate ? new Date(dueDate) : undefined,
+    onSelect: (date: Date | undefined) =>
+      setDueDate(date ? date.toISOString().split("T")[0] : ""),
+  };
 
   return (
     <>
@@ -98,13 +107,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
               Due Date
             </label>
-            <ShadcnInput
-                type="date"
-                id="dueDate"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
-              />
+            <DayPicker {...dayPickerInitialProps} />
           </div>
         </div>
       </form>
