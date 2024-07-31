@@ -59,10 +59,11 @@ export default function App() {
   }
 
   function handleStartAddPro() {
-    setProjectState((prevState) => ({
+    setProjectState((prevState)=>({
       ...prevState,
-      setProjectsId: null,
+      setProjectsId : null ,
     }));
+     
   }
 
   function handleSelectProj(id: number) {
