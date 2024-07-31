@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { Project } from "./Types";
 
-interface ProSideBarProps {
+type ProSideBarProps = {
   onSelectProj: (id: number) => void;
   onStartAddProject: () => void;
   projects: Project[];

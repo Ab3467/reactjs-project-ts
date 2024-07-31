@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Input as ShadcnInput } from "@/components/ui/input"; // Adjust the import path if necessary
 import Modal from "./Modal";
 
-interface NewProjectProps {
+type NewProjectProps = {
   onAdd: (projectData: {
     title: string;
     description: string;

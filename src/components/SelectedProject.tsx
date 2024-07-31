@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input"; // Adjust the import path if necessary
 import { Project, Task as TaskType } from "./Types";
 
-interface SelectedProProps {
+type SelectedProProps ={
   project: Project;
   onDelete: () => void;
   onAddTask: (text: string) => void;

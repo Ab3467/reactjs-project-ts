@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import Image from "../assets/Noimage.png";
 
-interface NoProSelectProps {
+type NoProSelectProps = {
   onstartAddProject: () => void;
 }
 
