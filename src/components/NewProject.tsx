@@ -1,13 +1,10 @@
 import React, { useRef, useState } from "react";
 import Input from "./Input";
+import CalendarInput from "./CalendarInput"; // Import the CalendarInput component
 import Modal from "./Modal";
 
 interface NewProjectProps {
-  onAdd: (projectData: {
-    title: string;
-    description: string;
-    duedate: string;
-  }) => void;
+  onAdd: (projectData: { title: string; description: string; duedate: string }) => void;
   onCancel: () => void;
 }
 
@@ -15,19 +12,14 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const Title = useRef<HTMLInputElement>(null);
   const Description = useRef<HTMLTextAreaElement>(null);
-  const Duedate = useRef<HTMLInputElement>(null);
+  const [dueDate, setDueDate] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent) {
     e.preventDefault();
     const EnteredTitle = Title.current?.value ?? "";
     const EnteredDes = Description.current?.value ?? "";
-    const EnteredDueD = Duedate.current?.value ?? "";
 
-    if (
-      EnteredTitle.trim() === "" ||
-      EnteredDes.trim() === "" ||
-      EnteredDueD.trim() === ""
-    ) {
+    if (EnteredTitle.trim() === "" || EnteredDes.trim() === "" || dueDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
@@ -35,21 +27,17 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     onAdd({
       title: EnteredTitle,
       description: EnteredDes,
-      duedate: EnteredDueD,
+      duedate: dueDate,
     });
 
     if (Title.current) Title.current.value = "";
     if (Description.current) Description.current.value = "";
-    if (Duedate.current) Duedate.current.value = "";
+    setDueDate("");
   }
 
   return (
     <>
-      <Modal
-        btnCaption="Ok"
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <Modal btnCaption="Ok" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
@@ -78,7 +66,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             label="Description"
             id="description"
           />
-          <Input type="date" ref={Duedate} label="Due Date" id="dueDate" />
+          <CalendarInput label="Due Date" id="dueDate" onSelectDate={setDueDate} />
         </div>
       </form>
     </>
