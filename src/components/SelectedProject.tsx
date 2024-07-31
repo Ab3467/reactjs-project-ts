@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
 import Tasks from "./Tasks";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input"; // Adjust the import path if necessary
+import { Input } from "./ui/input";
 import { Project, Task as TaskType } from "./Types";
+import { twMerge } from 'tailwind-merge'; // Import twMerge
 
-type SelectedProProps ={
+type SelectedProProps = {
   project: Project;
   onDelete: () => void;
   onAddTask: (text: string) => void;
@@ -22,11 +23,11 @@ const SelectedPro: React.FC<SelectedProProps> = ({
   const taskInputRef = useRef<HTMLInputElement>(null);
 
   const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
 
     const taskText = taskInputRef.current?.value ?? "";
-    if (taskText.trim() === "") return; // Prevent adding empty tasks
-    
+    if (taskText.trim() === "") return;
+
     onAddTask(taskText);
     if (taskInputRef.current) taskInputRef.current.value = "";
   };
