@@ -66,7 +66,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             label="Description"
             id="description"
           />
-          <CalendarInput label="Due Date" id="dueDate" onSelectDate={setDueDate} />
+          <Input type="date" />
         </div>
       </form>
     </>
