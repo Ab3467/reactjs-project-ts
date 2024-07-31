@@ -1,6 +1,5 @@
-import React from "react";
-import { Button } from "./ui/button";
 import Image from "../assets/Noimage.png";
+import { Button } from "./ui/button";
 
 type NoProSelectProps = {
   onStartAddProject: () => void;
