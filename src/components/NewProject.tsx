@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import Input from "./Input";
-import CalendarInput from "./CalendarInput"; // Import the CalendarInput component
 import Modal from "./Modal";
 
 interface NewProjectProps {
@@ -66,7 +65,18 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             label="Description"
             id="description"
           />
-          <Input type="date" />
+          <div className="mb-4">
+            <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
+              Due Date
+            </label>
+            <input
+              type="date"
+              id="dueDate"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
+            />
+          </div>
         </div>
       </form>
     </>
