@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import Input from "./Input";
 import CalendarInput from "./CalendarInput"; // Import the CalendarInput component
 import Modal from "./Modal";
-import TextAreaInput from "./TextAreaInput";
 
 interface NewProjectProps {
   onAdd: (projectData: { title: string; description: string; duedate: string }) => void;
@@ -61,7 +60,12 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         </menu>
         <div>
           <Input type="text" ref={Title} label="Title" id="title" />
-          <TextAreaInput label="Description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+          <Input
+            type="textarea"
+            ref={Description}
+            label="Description"
+            id="description"
+          />
           <CalendarInput label="Due Date" id="dueDate" onSelectDate={setDueDate} />
         </div>
       </form>
