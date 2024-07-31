@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button } from './ui/button';
-import { Project } from './Types';
+import React from "react";
+import { Button } from "./ui/button";
+import { Project } from "./Types";
 
 interface ProSideBarProps {
   onSelectProj: (id: number) => void;
@@ -9,7 +9,12 @@ interface ProSideBarProps {
   selectedProId: number | null | undefined;
 }
 
-const ProSideBar: React.FC<ProSideBarProps> = ({ onStartAddProject, projects, onSelectProj, selectedProId }) => {
+const ProSideBar: React.FC<ProSideBarProps> = ({
+  onStartAddProject,
+  projects,
+  onSelectProj,
+  selectedProId,
+}) => {
   return (
     <aside className="w-1/3 px-8 py-16 bg-stone-900 text-stone-50 md:w-72 rounded-r-xl">
       <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">
@@ -30,12 +35,12 @@ const ProSideBar: React.FC<ProSideBarProps> = ({ onStartAddProject, projects, on
 
           return (
             <li key={project.id}>
-              <Button
+              <div
                 onClick={() => onSelectProj(project.id)}
                 className={cssClasses}
               >
                 {project.title}
-              </Button>
+              </div>
             </li>
           );
         })}
