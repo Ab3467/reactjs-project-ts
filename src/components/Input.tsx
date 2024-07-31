@@ -31,7 +31,6 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
             ref={ref as React.Ref<HTMLInputElement>}
             value={value}
             onChange={onChange as React.ChangeEventHandler<HTMLInputElement>}
-            className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
           />
         )}
       </div>
