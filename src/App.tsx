@@ -113,7 +113,7 @@ export default function App() {
   if (projectState.setProjectsId === null) {
     content = <NewProject onAdd={handleAddProject} onCancel={handleCancel} />;
   } else if (projectState.setProjectsId === undefined) {
-    content = <NoProSelect onstartAddProject={handleStartAddPro} />;
+    content = <NoProSelect onStartAddProject={handleStartAddPro} />;
   } else {
     content = (
       <SelectedPro

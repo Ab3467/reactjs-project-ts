@@ -3,10 +3,10 @@ import { Button } from "./ui/button";
 import Image from "../assets/Noimage.png";
 
 type NoProSelectProps = {
-  onstartAddProject: () => void;
+  onStartAddProject: () => void;
 }
 
-const NoProSelect: React.FC<NoProSelectProps> = ({ onstartAddProject }) => {
+const NoProSelect: React.FC<NoProSelectProps> = ({ onStartAddProject }) => {
   return (
     <div className="mt-24 text-center w-2/3">
       <img
@@ -21,7 +21,7 @@ const NoProSelect: React.FC<NoProSelectProps> = ({ onstartAddProject }) => {
         Select a project or start with a new one{" "}
       </p>
       <p className="mt-8">
-        <Button onClick={onstartAddProject}>Create new Project</Button>
+        <Button onClick={onStartAddProject}>Create new Project</Button>
       </p>
     </div>
   );
