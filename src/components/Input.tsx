@@ -22,7 +22,8 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
             ref={ref as React.Ref<HTMLTextAreaElement>}
             value={value}
             onChange={onChange as React.ChangeEventHandler<HTMLTextAreaElement>}
-            className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
+            className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800 resize-none" // Fixed size and no resize
+            rows={4} // Specify the number of rows
           />
         ) : (
           <ShadcnInput
