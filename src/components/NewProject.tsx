@@ -1,9 +1,13 @@
 import React, { useRef, useState } from "react";
-import Input from "./Input";
+import { Input as ShadcnInput } from "@/components/ui/input"; // Adjust the import path if necessary
 import Modal from "./Modal";
 
 interface NewProjectProps {
-  onAdd: (projectData: { title: string; description: string; duedate: string }) => void;
+  onAdd: (projectData: {
+    title: string;
+    description: string;
+    duedate: string;
+  }) => void;
   onCancel: () => void;
 }
 
@@ -19,7 +23,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     const EnteredTitle = Title.current?.value ?? "";
     const EnteredDes = Description.current?.value ?? "";
 
-    if (EnteredTitle.trim() === "" || EnteredDes.trim() === "" || dueDate.trim() === "") {
+    if (
+      EnteredTitle.trim() === "" ||
+      EnteredDes.trim() === "" ||
+      dueDate.trim() === ""
+    ) {
       setIsModalOpen(true);
       return;
     }
@@ -38,7 +46,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
 
   return (
     <>
-      <Modal btnCaption="Ok" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Modal
+        btnCaption="Ok"
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
@@ -60,18 +72,32 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
           </li>
         </menu>
         <div>
-          <Input type="text" ref={Title} label="Title" id="title" />
-          <Input
-            type="textarea"
-            ref={Description}
-            label="Description"
-            id="description"
-          />
+          <div className="mb-4">
+            <label htmlFor="title" className="block mb-1 text-stone-500 font-bold">
+              Title
+            </label>
+            <ShadcnInput
+              type="text"
+              id="title"
+              ref={Title}
+              className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="description" className="block mb-1 text-stone-500 font-bold">
+              Description
+            </label>
+            <textarea
+              id="description"
+              ref={Description}
+              className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
+            />
+          </div>
           <div className="mb-4">
             <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
               Due Date
             </label>
-            <input
+            <ShadcnInput
               type="date"
               id="dueDate"
               value={dueDate}

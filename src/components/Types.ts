@@ -1,12 +1,12 @@
-export interface Project {
+export type Project = {
   id: number;
   title: string;
   description: string;
   duedate: string;
 }
 
-export interface Task {
+export type Task = {
   id: number;
   text: string;
-  ProId: number | undefined;
+  ProId: number | null; // Ensure consistency here
 }

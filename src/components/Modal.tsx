@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   AlertDialog,
-  // AlertDialogTrigger,
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogFooter,
@@ -29,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({ btnCaption, isOpen, onClose }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Close</AlertDialogCancel>
+          <AlertDialogCancel onClick={onClose}>Close</AlertDialogCancel>
           <AlertDialogAction onClick={onClose}>{btnCaption}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

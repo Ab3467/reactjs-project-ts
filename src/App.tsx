@@ -4,20 +4,20 @@ import NoProSelect from "./components/NoProjectSelected";
 import NewProject from "./components/NewProject";
 import SelectedPro from "./components/SelectedProject";
 
-interface Project {
+type Project = {
   id: number;
   title: string;
   description: string;
   duedate: string;
 }
 
-interface Task {
+type Task = {
   id: number;
   text: string;
-  ProId: number;
+  ProId: number | null;
 }
 
-interface ProjectState {
+type ProjectState = {
   setProjectsId: number | null | undefined;
   projects: Project[];
   tasks: Task[];
