@@ -3,7 +3,6 @@ import Tasks from "./Tasks";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Project, Task as TaskType } from "./Types";
-import { twMerge } from 'tailwind-merge'; // Import twMerge
 
 type SelectedProProps = {
   project: Project;
@@ -33,7 +32,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
   };
 
   return (
-    <div className={twMerge("w-2/3 h-full bg-stone-50 px-12 py-16 rounded-xl")}>
+    <div className="w-2/3 h-full bg-stone-50 px-12 py-16 rounded-xl">
       <div className="flex items-center gap-4">
         <h2 className="font-bold text-stone-500 text-lg">{project.title}</h2>
         <Button onClick={onDelete} variant="secondary">Delete Project</Button>
@@ -48,16 +47,18 @@ const SelectedPro: React.FC<SelectedProProps> = ({
           type="text"
           ref={taskInputRef}
           placeholder="New task"
-          className={twMerge("w-full py-2 px-4 rounded-md bg-stone-100 text-stone-800")}
+          className="w-full py-2 px-4 rounded-md bg-stone-100 text-stone-800"
         />
         <Button type="submit" variant="ghost">Add</Button>
       </form>
 
-      <ul className="mt-8">
-        {tasks.map((task) => (
-          <Tasks key={task.id} task={task} onDeleteTask={onDeleteTask} />
-        ))}
-      </ul>
+      <div className="mt-8 h-60 overflow-y-auto">
+        <ul>
+          {tasks.map((task) => (
+            <Tasks key={task.id} task={task} onDeleteTask={onDeleteTask} />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
