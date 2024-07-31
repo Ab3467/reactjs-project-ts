@@ -40,7 +40,9 @@ const SelectedPro: React.FC<SelectedProProps> = ({
       <p className="text-stone-400 my-2">{project.description}</p>
       <p className="text-stone-200 text-sm">{project.duedate}</p>
 
-      <hr className="my-6 border-0 h-px bg-stone-300" />
+
+      {/* Thematic Break */}
+      <hr className="my-6 border-0 h-px bg-stone-300" /> 
 
       <form onSubmit={handleAddTask} className="flex gap-2">
         <Input
@@ -52,7 +54,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
         <Button type="submit" variant="ghost">Add</Button>
       </form>
 
-      <div className="mt-8 h-60 overflow-y-auto">
+      <div className="mt-8 h-96 overflow-y-auto">
         <ul>
           {tasks.map((task) => (
             <Tasks key={task.id} task={task} onDeleteTask={onDeleteTask} />
