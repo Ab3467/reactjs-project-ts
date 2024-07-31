@@ -1,7 +1,7 @@
 import React from "react";
 import { Input as ShadcnInput } from "@/components/ui/input";
 
-interface InputProps {
+type InputProps = {
   type: string;
   label: string;
   id: string;

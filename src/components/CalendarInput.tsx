@@ -8,7 +8,9 @@ interface CalendarInputProps {
 }
 
 const CalendarInput: React.FC<CalendarInputProps> = ({ label, id, onSelectDate }) => {
+  // Function to handle date changes
   const handleDateChange = (date: Date) => {
+    console.log("Selected date:", date); // Debug statement
     const formattedDate = date.toISOString().split('T')[0];
     onSelectDate(formattedDate);
   };

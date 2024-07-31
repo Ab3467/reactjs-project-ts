@@ -36,7 +36,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
         <Button onClick={onDelete} variant="ghost">Delete</Button>
       </div>
       <p className="text-stone-400 my-2">{project.description}</p>
-      <p className="text-stone-200 text-sm">{project.duedate}</p>
+      <p className="text-stone-200 text-sm">Due Date: {project.duedate}</p>
 
       <hr className="my-6 border-0 h-px bg-stone-300" />
 
