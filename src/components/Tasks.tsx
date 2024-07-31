@@ -1,8 +1,8 @@
 import React from 'react';
 import { Task as TaskType } from './Types';
-import { Button } from './ui/button'; // Adjust this import if your Button component is elsewhere
+import { Button } from './ui/button'; 
 
-interface TaskProps {
+type TaskProps = {
   task: TaskType;
   onDeleteTask: (id: number) => void;
 }

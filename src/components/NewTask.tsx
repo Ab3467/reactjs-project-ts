@@ -32,7 +32,7 @@ const NewTask: React.FC<NewTaskProps> = ({ onAdd }) => {
       <Button
         type="submit"
       >
-        Add task
+        Add Task
       </Button>
     </form>
   );

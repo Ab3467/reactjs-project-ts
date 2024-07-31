@@ -14,7 +14,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [dueDate, setDueDate] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent) {
-    e.preventDefault();
+    e.preventDefault(); // Prevents default form submission
+
     const EnteredTitle = Title.current?.value ?? "";
     const EnteredDes = Description.current?.value ?? "";
 
@@ -29,6 +30,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: dueDate,
     });
 
+    // Reset form fields
     if (Title.current) Title.current.value = "";
     if (Description.current) Description.current.value = "";
     setDueDate("");
