@@ -13,21 +13,28 @@ interface ModalProps {
   btnCaption: string;
   isOpen: boolean;
   onClose: () => void;
+  onConfirm?: () => void; // Add an onConfirm prop
+  title?: string;
+  message?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ btnCaption, isOpen, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ btnCaption, isOpen, onClose, onConfirm, title, message }) => {
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Invalid Input</AlertDialogTitle>
-          <AlertDialogDescription>
-            Oops... Looks like you forgot to enter a value.
-            Please make sure you provided a valid value for every input field.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
+        {title && <AlertDialogHeader>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          {message && <AlertDialogDescription>{message}</AlertDialogDescription>}
+        </AlertDialogHeader>}
         <AlertDialogFooter>
-          <AlertDialogAction onClick={onClose}>{btnCaption}</AlertDialogAction>
+          {onConfirm && (
+            <AlertDialogAction onClick={onConfirm} className="bg-red-600 text-white hover:bg-red-700">
+              Confirm
+            </AlertDialogAction>
+          )}
+          <AlertDialogAction onClick={onClose} className="bg-gray-300 hover:bg-gray-400">
+            {btnCaption}
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
