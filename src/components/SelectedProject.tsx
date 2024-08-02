@@ -25,7 +25,10 @@ const SelectedPro: React.FC<SelectedProProps> = ({
     e.preventDefault();
 
     const taskText = taskInputRef.current?.value ?? "";
-    if (taskText.trim() === "") return;
+    if (taskText.trim() === "") {
+      alert("Please enter task first");
+      return;
+    };
 
     onAddTask(taskText);
     if (taskInputRef.current) taskInputRef.current.value = "";

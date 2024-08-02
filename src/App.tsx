@@ -31,11 +31,6 @@ export default function App() {
   });
 
   function handleAddTask(text: string) {
-    if (text.trim().length <= 0) {
-      alert("Please enter a task first");
-      return;
-    }
-
     setProjectState((prevState) => {
       const TaskId = Math.random();
       const newTask: Task = {
@@ -130,7 +125,7 @@ export default function App() {
   }
 
   return (
-    <main className="h-screen my-8 flex gap-8 font-serif">
+    <main className="h-screen my-8 flex gap-8 mb-0">
       <ProSideBar
         onSelectProject={handleSelectProj}
         onStartAddProject={handleStartAddPro}
