@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import ProSideBar from "./components/ProjectSideBar";
 import NoProSelect from "./components/NoProjectSelected";
 import NewProject from "./components/NewProject";
@@ -9,19 +9,19 @@ type Project = {
   title: string;
   description: string;
   duedate: string;
-};
+}
 
 type Task = {
   id: number;
   text: string;
   ProId: number | null;
-};
+}
 
 type ProjectState = {
   setProjectsId: number | null | undefined;
   projects: Project[];
   tasks: Task[];
-};
+}
 
 export default function App() {
   const [projectState, setProjectState] = useState<ProjectState>({
@@ -31,11 +31,6 @@ export default function App() {
   });
 
   function handleAddTask(text: string) {
-    if (text.trim().length <= 0) {
-      alert("Please enter a task first");
-      return;
-    }
-
     setProjectState((prevState) => {
       const TaskId = Math.random();
       const newTask: Task = {
@@ -59,10 +54,11 @@ export default function App() {
   }
 
   function handleStartAddPro() {
-    setProjectState((prevState) => ({
+    setProjectState((prevState)=>({
       ...prevState,
-      setProjectsId: null,
+      setProjectsId : null ,
     }));
+     
   }
 
   function handleSelectProj(id: number) {
@@ -72,11 +68,11 @@ export default function App() {
     }));
   }
 
-  function handleCancel() {
-    setProjectState((prevState) => ({
+  function handleCancel(){
+    setProjectState((prevState)=>({
       ...prevState,
-      setProjectsId: undefined,
-    }));
+      setProjectsId : undefined,
+    }))
   }
 
   function handleDelete() {
@@ -112,24 +108,24 @@ export default function App() {
 
   if (projectState.setProjectsId === null) {
     content = <NewProject onAdd={handleAddProject} onCancel={handleCancel} />;
-  } else if (projectState.setProjectsId === undefined) {
-    content = <NoProSelect onStartAddProject={handleStartAddPro} />;
-  } else {
+  } 
+  else if(projectState.setProjectsId === undefined){
+    content = <NoProSelect onStartAddProject={handleStartAddPro}/>
+  }
+  else {
     content = (
       <SelectedPro
         project={selectedProject!}
         onDelete={handleDelete}
         onAddTask={handleAddTask}
         onDeleteTask={handleDeleteTask}
-        tasks={projectState.tasks.filter(
-          (task) => task.ProId === projectState.setProjectsId
-        )}
+        tasks={projectState.tasks.filter(task => task.ProId === projectState.setProjectsId)}
       />
     );
   }
 
   return (
-    <main className="h-screen my-8 flex gap-8 mb-0 font-sans">
+    <main className="h-screen my-8 flex gap-8 mb-0">
       <ProSideBar
         onSelectProject={handleSelectProj}
         onStartAddProject={handleStartAddPro}
