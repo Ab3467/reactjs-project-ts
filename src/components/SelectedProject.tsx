@@ -24,7 +24,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault();
+      e.preventDefault();
 
     const taskText = taskInputRef.current?.value ?? "";
     if (taskText.trim() === "") {
