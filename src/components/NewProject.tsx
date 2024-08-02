@@ -47,11 +47,23 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     setDueDate("");
   }
 
+  function formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   const dayPickerInitialProps: DayPickerProps = {
     mode: "single",
     selected: dueDate ? new Date(dueDate) : undefined,
-    onSelect: (date: Date | undefined) =>
-      setDueDate(date ? date.toISOString().split("T")[0] : ""),
+    onSelect: (date: Date | undefined) => {
+      if (date) {
+        setDueDate(formatDate(date));
+      } else {
+        setDueDate("");
+      }
+    },
   };
 
   return (
