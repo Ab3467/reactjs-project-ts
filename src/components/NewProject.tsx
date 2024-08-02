@@ -68,11 +68,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
 
   return (
     <>
-      <Modal
+      <Modal 
         btnCaption="Ok"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-      />
+        />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>
@@ -89,6 +89,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             <Button
               type="submit"
               className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950"
+              variant="default"
             >
               Save
             </Button>

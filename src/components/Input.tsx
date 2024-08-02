@@ -30,7 +30,7 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
             id={id}
             ref={ref as React.Ref<HTMLInputElement>}
             value={value}
-            onChange={onChange as React.ChangeEventHandler<HTMLInputElement>}
+            onChange={onChange}
           />
         )}
       </div>

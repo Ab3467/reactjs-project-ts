@@ -6,7 +6,6 @@ import {
   AlertDialogFooter,
   AlertDialogTitle,
   AlertDialogDescription,
-  AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 
@@ -28,7 +27,6 @@ const Modal: React.FC<ModalProps> = ({ btnCaption, isOpen, onClose }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onClose}>Close</AlertDialogCancel>
           <AlertDialogAction onClick={onClose}>{btnCaption}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
