@@ -13,7 +13,7 @@ interface ModalProps {
   btnCaption: string;
   isOpen: boolean;
   onClose: () => void;
-  onConfirm?: () => void; // Add an onConfirm prop
+  onConfirm?: () => void;
   title?: string;
   message?: string;
 }
@@ -22,10 +22,10 @@ const Modal: React.FC<ModalProps> = ({ btnCaption, isOpen, onClose, onConfirm, t
   return (
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent>
-        {title && <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          {message && <AlertDialogDescription>{message}</AlertDialogDescription>}
-        </AlertDialogHeader>}
+        <AlertDialogHeader>
+          {title && <AlertDialogTitle>{title}</AlertDialogTitle>}
+          {message && <AlertDialogDescription className="text-red-600">{message}</AlertDialogDescription>}
+        </AlertDialogHeader>
         <AlertDialogFooter>
           {onConfirm && (
             <AlertDialogAction onClick={onConfirm} className="bg-red-600 text-white hover:bg-red-700">

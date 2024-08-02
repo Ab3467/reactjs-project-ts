@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { Input as ShadcnInput } from "@/components/ui/input"; // Adjust the import path if necessary
+import { Input as ShadcnInput } from "@/components/ui/input";
 import Modal from "./Modal";
-import { Button } from "./ui/button"; // Adjust the import path if necessary
+import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 
@@ -21,14 +21,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [dueDate, setDueDate] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent) {
-    e.preventDefault(); // Prevents default form submission
+    e.preventDefault();
 
     const EnteredTitle = Title.current?.value ?? "";
     const EnteredDes = Description.current?.value ?? "";
-
-    console.log("Title:", EnteredTitle);
-    console.log("Description:", EnteredDes);
-    console.log("Due Date:", dueDate);
 
     if (
       EnteredTitle.trim() === "" ||
@@ -45,7 +41,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: dueDate,
     });
 
-    // Reset form fields
     if (Title.current) Title.current.value = "";
     if (Description.current) Description.current.value = "";
     setDueDate("");
@@ -76,6 +71,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         btnCaption="Ok"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        title="Invalid Input"
+        message="Oops... Looks like you forgot to enter a value. Please make sure you provided a valid value for every input field."
       />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <menu className="flex items-center justify-end gap-4 my-4">
