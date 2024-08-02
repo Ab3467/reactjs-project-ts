@@ -22,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProp
             ref={ref as React.Ref<HTMLTextAreaElement>}
             value={value}
             onChange={onChange as React.ChangeEventHandler<HTMLTextAreaElement>}
-            rows={4} // Specify the number of rows
+            rows={4} // Sepecify the number of rows
           />
         ) : (
           <ShadcnInput
