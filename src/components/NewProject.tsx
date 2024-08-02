@@ -26,6 +26,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     const EnteredTitle = Title.current?.value ?? "";
     const EnteredDes = Description.current?.value ?? "";
 
+    console.log("Title:", EnteredTitle);
+    console.log("Description:", EnteredDes);
+    console.log("Due Date:", dueDate);
+
     if (
       EnteredTitle.trim() === "" ||
       EnteredDes.trim() === "" ||
@@ -72,7 +76,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         btnCaption="Ok"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        />
+      />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <menu className="flex items-center justify-end gap-4 my-4">
           <li>

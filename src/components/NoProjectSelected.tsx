@@ -7,7 +7,7 @@ type NoProSelectProps = {
 
 const NoProSelect: React.FC<NoProSelectProps> = ({ onStartAddProject }) => {
   return (
-    <div className="mt-24 text-center w-2/3">
+    <div className="mt-24 text-center w-2/3 mb-0">
       <img
         src={Image}
         alt="Empty"
