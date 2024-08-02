@@ -4,7 +4,7 @@ import { Project } from "./Types";
 import { twMerge } from 'tailwind-merge'; // Import twMerge
 
 type ProSideBarProps = {
-  onSelectProj: (id: number) => void;
+  onSelectProject: (id: number) => void;
   onStartAddProject: () => void;
   projects: Project[];
   selectedProId: number | null | undefined;
@@ -13,7 +13,7 @@ type ProSideBarProps = {
 const ProSideBar: React.FC<ProSideBarProps> = ({
   onStartAddProject,
   projects,
-  onSelectProj,
+  onSelectProject,
   selectedProId,
 }) => {
   return (
@@ -35,7 +35,7 @@ const ProSideBar: React.FC<ProSideBarProps> = ({
           return (
             <li key={project.id}>
               <div
-                onClick={() => onSelectProj(project.id)}
+                onClick={() => onSelectProject(project.id)}
                 className={cssClasses}
               >
                 {project.title}

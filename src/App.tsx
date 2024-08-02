@@ -113,9 +113,11 @@ export default function App() {
 
   if (projectState.setProjectsId === null) {
     content = <NewProject onAdd={handleAddProject} onCancel={handleCancel} />;
-  } else if (projectState.setProjectsId === undefined) {
-    content = <NoProSelect onStartAddProject={handleStartAddPro} />;
-  } else {
+  } 
+  else if(projectState.setProjectsId === undefined){
+    content = <NoProSelect onStartAddProject={handleStartAddPro}/>
+  }
+  else {
     content = (
       <SelectedPro
         project={selectedProject!}
@@ -130,7 +132,7 @@ export default function App() {
   return (
     <main className="h-screen my-8 flex gap-8 font-serif">
       <ProSideBar
-        onSelectProj={handleSelectProj}
+        onSelectProject={handleSelectProj}
         onStartAddProject={handleStartAddPro}
         projects={projectState.projects}
         selectedProId={projectState.setProjectsId}
