@@ -61,7 +61,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
         <Input
           type="text"
           ref={taskInputRef}
-          placeholder="New task"
+          placeholder="Enter new task"
           className="w-full py-2 px-4 rounded-md bg-stone-100 text-stone-800"
         />
         <Button type="submit" variant="ghost">Add</Button>
