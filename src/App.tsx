@@ -52,6 +52,7 @@ export default function App() {
       tasks: prevState.tasks.filter((task) => task.id !== id),
     }));
   }
+  
 
   function handleStartAddPro() {
     setProjectState((prevState)=>({
