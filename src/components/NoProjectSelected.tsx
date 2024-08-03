@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 type NoProSelectProps = {
   onStartAddProject: () => void;
-}
+};
 
 const NoProSelect: React.FC<NoProSelectProps> = ({ onStartAddProject }) => {
   return (
