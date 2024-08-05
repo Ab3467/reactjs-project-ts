@@ -40,16 +40,26 @@ export default function App() {
   function handleAddProject(projectData: Omit<Project, "id">) {
     setProjectState((prevState) => {
       const ProjectId = Math.random();
-      const newPro: Project = {
+      const newProject: Project = {
         ...projectData,
         id: ProjectId,
       };
       return {
         ...prevState,
         setProjectsId: undefined,
-        projects: [...prevState.projects, newPro],
+        projects: [...prevState.projects, newProject],
       };
     });
+  }
+
+  function handleDeleteProject() {
+    setProjectState((prevState) => ({
+      ...prevState,
+      setProjectsId: undefined,
+      projects: prevState.projects.filter(
+        (project) => project.id !== prevState.setProjectsId
+      ),
+    }));
   }
 
   function handleAddTask(text: string) {
@@ -86,16 +96,6 @@ export default function App() {
     setProjectState((prevState) => ({
       ...prevState,
       setProjectsId: undefined,
-    }));
-  }
-
-  function handleDeleteProject() {
-    setProjectState((prevState) => ({
-      ...prevState,
-      setProjectsId: undefined,
-      projects: prevState.projects.filter(
-        (project) => project.id !== prevState.setProjectsId
-      ),
     }));
   }
 
