@@ -76,11 +76,11 @@ export default function App() {
     }));
   }
 
-  function handleSelectProj(id: number) {
-    setProjectState((prevState) => ({
-      ...prevState,
-      setProjectsId: id,
-    }));
+  function handleSelectProject(id: number) {
+    setProjectState((prevState)=> ({
+     ...prevState,
+     setProjectsId: id
+    }))
   }
 
   function handleCancel() {
@@ -127,7 +127,7 @@ export default function App() {
   return (
     <main className="h-screen my-8 flex gap-8 mb-0 font-serif">
       <ProSideBar
-        onSelectProject={handleSelectProj}
+        onSelectProject={handleSelectProject}
         onStartAddProject={handleStartAddPro}
         projects={projectState.projects}
         selectedProId={projectState.setProjectsId}
