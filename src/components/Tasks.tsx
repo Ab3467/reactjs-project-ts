@@ -9,7 +9,7 @@ type TaskProps = {
 
 const Tasks: React.FC<TaskProps> = ({ task, onDeleteTask }) => {
   return (
-    <li className="flex items-center justify-between p-4 mb-2 bg-gray-100 rounded-md shadow-md">
+    <li className="flex items-center justify-between p-4 bg-gray-100 rounded-md shadow-md">
       <span className="text-gray-800">{task.text}</span>
       <Button 
         onClick={() => onDeleteTask(task.id)} 
