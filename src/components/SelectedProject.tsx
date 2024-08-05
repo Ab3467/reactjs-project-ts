@@ -14,7 +14,7 @@ type SelectedProProps = {
 }
 
 const SelectedPro: React.FC<SelectedProProps> = ({
-  project,
+ project,
   onDeleteProject,
   onAddTask,
   onDeleteTask,
