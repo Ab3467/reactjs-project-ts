@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Input as ShadcnInput } from "@/components/ui/input";
 import Modal from "./Modal";
 import { Button } from "./ui/button";
@@ -16,34 +16,27 @@ type NewProjectProps = {
 
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const Title = useRef<HTMLInputElement>(null);
-  const Description = useRef<HTMLTextAreaElement>(null);
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [dueDate, setDueDate] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent) {
     e.preventDefault();
 
-    const EnteredTitle = Title.current?.value ?? "";
-    const EnteredDes = Description.current?.value ?? "";
-
-    if (
-      EnteredTitle.trim() === "" ||
-      EnteredDes.trim() === "" ||
-      dueDate.trim() === ""
-    ) {
+    if (title.trim() === "" || description.trim() === "" || dueDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
 
     onAdd({
-      title: EnteredTitle,
-      description: EnteredDes,
+      title,
+      description,
       duedate: dueDate,
     });
 
     // Clear form fields
-    if (Title.current) Title.current.value = "";
-    if (Description.current) Description.current.value = "";
+    setTitle("");
+    setDescription("");
     setDueDate("");
   }
 
@@ -61,7 +54,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const dayPickerInitialProps: DayPickerProps = {
     mode: "single",
     selected: dueDate ? new Date(dueDate) : undefined,
-    onDayClick: handleDayClick, // Use onDayClick instead of onSelect
+    onDayClick: handleDayClick,
   };
 
   return (
@@ -103,7 +96,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             <ShadcnInput
               type="text"
               id="title"
-              ref={Title}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
             />
           </div>
@@ -113,7 +107,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             </label>
             <textarea
               id="description"
-              ref={Description}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800 resize-none"
             />
           </div>
