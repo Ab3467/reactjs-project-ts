@@ -7,7 +7,7 @@ import Modal from "./Modal"; // Import the Modal component
 
 type SelectedProProps = {
   project: Project;
-  onDelete: () => void;
+  onDeleteProject: () => void;
   onAddTask: (text: string) => void;
   onDeleteTask: (id: number) => void;
   tasks: TaskType[];
@@ -15,7 +15,7 @@ type SelectedProProps = {
 
 const SelectedPro: React.FC<SelectedProProps> = ({
   project,
-  onDelete,
+  onDeleteProject,
   onAddTask,
   onDeleteTask,
   tasks,
@@ -41,7 +41,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
   };
 
   const handleConfirmDelete = () => {
-    onDelete();
+    onDeleteProject();
     setIsModalOpen(false);
   };
 

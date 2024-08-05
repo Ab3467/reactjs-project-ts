@@ -114,7 +114,7 @@ export default function App() {
     content = (
       <SelectedPro
         project={selectedProject!}
-        onDelete={handleDeleteProject}
+        onDeleteProject={handleDeleteProject}
         onAddTask={handleAddTask}
         onDeleteTask={handleDeleteTask}
         tasks={projectState.tasks.filter(
