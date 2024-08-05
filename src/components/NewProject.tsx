@@ -41,6 +41,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: dueDate,
     });
 
+    // Clear form fields
     if (Title.current) Title.current.value = "";
     if (Description.current) Description.current.value = "";
     setDueDate("");
@@ -53,16 +54,14 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     return `${year}-${month}-${day}`;
   }
 
+  const handleDayClick = (date: Date) => {
+    setDueDate(formatDate(date));
+  };
+
   const dayPickerInitialProps: DayPickerProps = {
     mode: "single",
     selected: dueDate ? new Date(dueDate) : undefined,
-    onSelect: (date: Date | undefined) => {
-      if (date) {
-        setDueDate(formatDate(date));
-      } else {
-        setDueDate("");
-      }
-    },
+    onDayClick: handleDayClick, // Use onDayClick instead of onSelect
   };
 
   return (
@@ -75,7 +74,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         message="Oops... Looks like you forgot to enter a value. Please make sure you provided a valid value for every input field."
       />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
-        <menu className="flex items-center justify-end gap-4 my-4">
+        <ul className="flex items-center justify-end gap-4 my-4">
           <li>
             <Button
               className="text-stone-800 hover:text-stone-950"
@@ -95,7 +94,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               Save
             </Button>
           </li>
-        </menu>
+        </ul>
         <div>
           <div className="mb-4">
             <label htmlFor="title" className="block mb-1 text-stone-500 font-bold">
