@@ -40,14 +40,14 @@ export default function App() {
   function handleAddProject(projectData: Omit<Project, "id">) {
     setProjectState((prevState) => {
       const ProjectId = Math.random();
-      const newProject: Project = {
+      const newPro: Project = {
         ...projectData,
         id: ProjectId,
       };
       return {
         ...prevState,
         setProjectsId: undefined,
-        projects: [...prevState.projects, newProject],
+        projects: [...prevState.projects, newPro],
       };
     });
   }
@@ -57,7 +57,7 @@ export default function App() {
       ...prevState,
       setProjectsId: undefined,
       projects: prevState.projects.filter(
-        (project) => project.id !== prevState.setProjectsId
+        (project) => project.id !== projectState.setProjectsId
       ),
     }));
   }
