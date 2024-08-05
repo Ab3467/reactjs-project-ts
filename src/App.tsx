@@ -51,6 +51,7 @@ export default function App() {
       };
     });
   }
+  
 
   function handleAddTask(text: string) {
     setProjectState((prevState) => {
