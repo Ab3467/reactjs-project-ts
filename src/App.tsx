@@ -69,7 +69,7 @@ export default function App() {
         text: text,
         id: TaskId,
         ProId:
-          prevTasks.setProjectsId !== undefined  ? prevTasks.setProjectsId : -1,
+          prevTasks.setProjectsId !== undefined ? prevTasks.setProjectsId : -1,
       };
       return {
         ...prevTasks,
