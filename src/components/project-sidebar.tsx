@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "./ui/button";
-import { Project } from "./types";
+import { Project } from "../components/Types";
 import { twMerge } from 'tailwind-merge'; // Import twMerge
 
 type ProSideBarProps = {

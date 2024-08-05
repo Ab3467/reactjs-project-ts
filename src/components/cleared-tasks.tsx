@@ -1,5 +1,5 @@
 import React from 'react';
-import { Task as TaskType } from './types';
+import { Task as TaskType } from '../components/Types';
 import { Button } from './ui/button'; 
 
 type TaskProps = {
