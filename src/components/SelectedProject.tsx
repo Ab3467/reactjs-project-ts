@@ -13,7 +13,7 @@ type SelectedProProps = {
   tasks: TaskType[];
 };
 
-const SelectedPro: React.FC<SelectedProProps> = ({
+const SelectedProject: React.FC<SelectedProProps> = ({
   project,
   onDeleteProject,
   onAddTask,
@@ -67,4 +67,4 @@ const SelectedPro: React.FC<SelectedProProps> = ({
   );
 };
 
-export default SelectedPro;
+export default SelectedProject;

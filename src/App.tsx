@@ -2,7 +2,7 @@ import { useState } from "react";
 import ProSideBar from "./components/ProjectSideBar";
 import NoProSelect from "./components/NoProjectSelected";
 import NewProject from "./components/NewProject";
-import SelectedPro from "./components/SelectedProject";
+import SelectedProject from "./components/SelectedProject";
 
 type Project = {
   id: number;
@@ -111,7 +111,7 @@ export default function App() {
     content = <NoProSelect onStartAddProject={handleStartAddPro} />;
   } else {
     content = (
-      <SelectedPro
+      <SelectedProject
         project={selectedProject!}
         onDeleteProject={handleDeleteProject}
         onAddTask={handleAddTask}
