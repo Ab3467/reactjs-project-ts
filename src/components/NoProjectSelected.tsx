@@ -1,4 +1,4 @@
-import Image from "../assets/Noimage.png";
+import Image from "../assets/Add.png"
 import { Button } from "./ui/button";
 
 type NoProSelectProps = {
