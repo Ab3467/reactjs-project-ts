@@ -39,10 +39,10 @@ export default function App() {
 
   function handleAddProject(projectData: Omit<Project, "id">) {
     setProjectState((prevState) => {
-      const ProId = Math.random();
+      const ProjectId = Math.random();
       const newPro: Project = {
         ...projectData,
-        id: ProId,
+        id: ProjectId,
       };
       return {
         ...prevState,
