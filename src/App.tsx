@@ -77,10 +77,10 @@ export default function App() {
   }
 
   function handleSelectProject(id: number) {
-    setProjectState((prevState)=> ({
-     ...prevState,
-     setProjectsId: id
-    }))
+    setProjectState((prevState) => ({
+      ...prevState,
+      setProjectsId: id,
+    }));
   }
 
   function handleCancel() {
