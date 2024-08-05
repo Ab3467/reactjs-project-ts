@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({ btnCaption, isOpen, onClose, onConfirm, t
               Confirm
             </AlertDialogAction>
           )}
-          <AlertDialogAction onClick={onClose} className="bg-black text-white hover:bg-gray-800">
+          <AlertDialogAction onClick={onClose} className="border border-input bg-background hover:bg-accent hover:text-accent-foreground">
             {btnCaption}
           </AlertDialogAction>
         </AlertDialogFooter>
