@@ -39,8 +39,8 @@ const SelectedPro: React.FC<SelectedProProps> = ({
           Delete Project
         </Button>
       </div>
-      <p className="text-stone-400 my-2">{project.description}</p>
-      <p className="text-stone-200 text-sm">{project.duedate}</p>
+      <h3 className="text-stone-400 my-2">{project.description}</h3>
+      <h4 className="text-stone-200 text-sm">{project.duedate}</h4>
 
       {/* Thematic Break */}
       <hr className="my-6 border-0 h-px bg-stone-300" />
