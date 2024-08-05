@@ -13,13 +13,8 @@ type SelectedProProps = {
   tasks: TaskType[];
 };
 
-const SelectedPro: React.FC<SelectedProProps> = ({
-  project,
-  onDeleteProject,
-  onAddTask,
-  onDeleteTask,
-  tasks,
-}) => {
+const SelectedPro: React.FC<SelectedProProps> = ({project,onDeleteProject,onAddTask,onDeleteTask,tasks,}) => {
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDeleteConfirmation = () => {
