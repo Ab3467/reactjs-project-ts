@@ -90,7 +90,7 @@ export default function App() {
     }))
   }
 
-  function handleDelete() {
+  function handleDeleteProject() {
     setProjectState((prevState) => ({
       ...prevState,
       setProjectsId: undefined,
@@ -114,7 +114,7 @@ export default function App() {
     content = (
       <SelectedPro
         project={selectedProject!}
-        onDelete={handleDelete}
+        onDelete={handleDeleteProject}
         onAddTask={handleAddTask}
         onDeleteTask={handleDeleteTask}
         tasks={projectState.tasks.filter(
