@@ -51,24 +51,23 @@ export default function App() {
       };
     });
   }
-  
 
-  function handleAddTask(text: string){
-    setProjectState((prevState)=>{
+  function handleAddTask(text: string) {
+    setProjectState((prevTasks) => {
       const TaskId = Math.random();
-      const newTask : Task={
+      const newTask: Task = {
         text: text,
         id: TaskId,
-        ProId: 
-         prevState.setProjectsId !== undefined ? prevState.setProjectsId : -1
+        ProId:
+          prevTasks.setProjectsId !== undefined ? prevTasks.setProjectsId : -1,
       };
-      return{
-        ...prevState,
-        tasks:  [newTask, ...(prevState.tasks || [])]
-      }
-    })
+      return {
+        ...prevTasks,
+        tasks: [newTask, ...(prevTasks.tasks || [])],
+      };
+    });
   }
- 
+
   function handleDeleteTask(id: number) {
     setProjectState((prevState) => ({
       ...prevState,
@@ -83,11 +82,11 @@ export default function App() {
     }));
   }
 
-  function handleCancel(){
-    setProjectState((prevState)=>({
+  function handleCancel() {
+    setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined
-    }))
+      setProjectsId: undefined,
+    }));
   }
 
   function handleDeleteProject() {
