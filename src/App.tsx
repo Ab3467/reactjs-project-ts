@@ -53,23 +53,22 @@ export default function App() {
   }
   
 
-  function handleAddTask(text: string) {
-    setProjectState((prevState) => {
+  function handleAddTask(text: string){
+    setProjectState((prevState)=>{
       const TaskId = Math.random();
-      const newTask: Task = {
+      const newTask : Task={
         text: text,
-        ProId:
-          prevState.setProjectsId !== undefined ? prevState.setProjectsId : -1, // Handle undefined case
         id: TaskId,
+        ProId: 
+         prevState.setProjectsId !== undefined ? prevState.setProjectsId : -1
       };
-
-      return {
+      return{
         ...prevState,
-        tasks: [newTask, ...(prevState.tasks || [])],
-      };
-    });
+        tasks:  [newTask, ...(prevState.tasks || [])]
+      }
+    })
   }
-
+ 
   function handleDeleteTask(id: number) {
     setProjectState((prevState) => ({
       ...prevState,
