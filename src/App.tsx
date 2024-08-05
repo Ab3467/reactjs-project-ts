@@ -1,8 +1,8 @@
 import { useState } from "react";
-import ProSideBar from "./components/ProjectSideBar";
-import NoProSelect from "./components/NoProjectSelected";
-import NewProject from "./components/NewProject";
-import SelectedProject from "./components/SelectedProject";
+import ProSideBar from "./components/project-sidebar";
+import NoProSelect from "./components/no-project-selected";
+import NewProject from "./components/new-project";
+import SelectedProject from "./components/selected-project";
 
 type Project = {
   id: number;
