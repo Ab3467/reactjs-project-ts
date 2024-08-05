@@ -37,6 +37,21 @@ export default function App() {
     }));
   }
 
+  function handleAddProject(projectData: Omit<Project, "id">) {
+    setProjectState((prevState) => {
+      const ProId = Math.random();
+      const newPro: Project = {
+        ...projectData,
+        id: ProId,
+      };
+      return {
+        ...prevState,
+        setProjectsId: undefined,
+        projects: [...prevState.projects, newPro],
+      };
+    });
+  }
+
   function handleAddTask(text: string) {
     setProjectState((prevState) => {
       const TaskId = Math.random();
@@ -83,21 +98,6 @@ export default function App() {
         (project) => project.id !== prevState.setProjectsId
       ),
     }));
-  }
-
-  function handleAddProject(projectData: Omit<Project, "id">) {
-    setProjectState((prevState) => {
-      const ProId = Math.random();
-      const newPro: Project = {
-        ...projectData,
-        id: ProId,
-      };
-      return {
-        ...prevState,
-        setProjectsId: undefined,
-        projects: [...prevState.projects, newPro],
-      };
-    });
   }
 
   const selectedProject = projectState.projects.find(
