@@ -11,7 +11,7 @@ const NoProSelect: React.FC<NoProSelectProps> = ({ onStartAddProject }) => {
       <img
         src={Image}
         alt="Empty"
-        className="w-16 h-16 object-contain mx-auto"
+        className="w-16 h-16 object-contain mx-auto rounded-lg"
       />
       <h2 className="text-xl font-bold text-stone-500 my-4">
         No project selected
