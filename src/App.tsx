@@ -103,26 +103,6 @@ export default function App() {
     (project) => project.id == projectState.setProjectsId
   );
 
-  let content;
-
-  if (projectState.setProjectsId === null) {
-    content = <NewProject onAdd={handleAddProject} onCancel={handleCancel} />;
-  } else if (projectState.setProjectsId === undefined) {
-    content = <NoProSelect onStartAddProject={handleStartAddPro} />;
-  } else {
-    content = (
-      <SelectedProject
-        project={selectedProject!}
-        onDeleteProject={handleDeleteProject}
-        onAddTask={handleAddTask}
-        onDeleteTask={handleDeleteTask}
-        tasks={projectState.tasks.filter(
-          (task) => task.ProId === projectState.setProjectsId
-        )}
-      />
-    );
-  }
-
   return (
     <main className="h-screen my-8 flex gap-8 mb-0 font-serif">
       <ProSideBar
@@ -131,7 +111,16 @@ export default function App() {
         projects={projectState.projects}
         selectedProId={projectState.setProjectsId}
       />
-      {content}
+      {projectState.setProjectsId === null && <NewProject onAdd={handleAddProject} onCancel={handleCancel} />}
+      {projectState.setProjectsId !== null && projectState.setProjectsId === undefined ? <NoProSelect onStartAddProject={handleStartAddPro} />:<SelectedProject
+        project={selectedProject!}
+        onDeleteProject={handleDeleteProject}
+        onAddTask={handleAddTask}
+        onDeleteTask={handleDeleteTask}
+        tasks={projectState.tasks.filter(
+          (task) => task.ProId === projectState.setProjectsId
+        )}
+      />}
     </main>
   );
 }
