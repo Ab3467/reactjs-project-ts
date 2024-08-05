@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Tasks from "./Tasks";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { Project, Task as TaskType } from "./Types";
-import Modal from "./Modal"; // Import the Modal component
+import Modal from "./Modal";
+import NewTask from "./NewTask";
 
 type SelectedProProps = {
   project: Project;
@@ -20,21 +20,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
   onDeleteTask,
   tasks,
 }) => {
-  const taskInputRef = useRef<HTMLInputElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleAddTask = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const taskText = taskInputRef.current?.value ?? "";
-    if (taskText.trim() === "") {
-      alert("Please enter task first");
-      return;
-    }
-
-    onAddTask(taskText);
-    if (taskInputRef.current) taskInputRef.current.value = "";
-  };
 
   const handleDeleteConfirmation = () => {
     setIsModalOpen(true);
@@ -58,18 +44,8 @@ const SelectedPro: React.FC<SelectedProProps> = ({
 
       {/* Thematic Break */}
       <hr className="my-6 border-0 h-px bg-stone-300" />
-
-      <form onSubmit={handleAddTask} className="flex gap-2">
-        <Input
-          type="text"
-          ref={taskInputRef}
-          placeholder="Enter new task"
-          className="w-full py-2 px-4 rounded-md bg-stone-100 text-stone-800"
-        />
-        <Button type="submit" variant="outline">
-          Add
-        </Button>
-      </form>
+      
+      <NewTask onAddTask={onAddTask} />
 
       <div className="mt-8 h-96 overflow-y-auto">
         <ul>
