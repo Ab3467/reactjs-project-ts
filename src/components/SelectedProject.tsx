@@ -66,7 +66,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({
           placeholder="Enter new task"
           className="w-full py-2 px-4 rounded-md bg-stone-100 text-stone-800"
         />
-        <Button type="submit" variant="ghost">
+        <Button type="submit" variant="outline">
           Add
         </Button>
       </form>

@@ -101,7 +101,7 @@ export default function App() {
   }
 
   const selectedProject = projectState.projects.find(
-    (project) => project.id === projectState.setProjectsId
+    (project) => project.id == projectState.setProjectsId
   );
 
   let content;
