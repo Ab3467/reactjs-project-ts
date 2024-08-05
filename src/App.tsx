@@ -63,7 +63,7 @@ export default function App() {
       };
       return {
         ...prevTasks,
-        tasks: [newTask, ...(prevTasks.tasks || [])],
+        tasks: [newTask, ...prevTasks.tasks],
       };
     });
   }
