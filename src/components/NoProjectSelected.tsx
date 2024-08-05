@@ -16,12 +16,12 @@ const NoProSelect: React.FC<NoProSelectProps> = ({ onStartAddProject }) => {
       <h2 className="text-xl font-bold text-stone-500 my-4">
         No project selected
       </h2>
-      <p className="text-stone-400 mb-4">
+      <div className="text-stone-400 mb-4">
         Select a project or start with a new one{" "}
-      </p>
-      <p className="mt-8">
+      </div>
+      <div className="mt-8">
         <Button onClick={onStartAddProject}>Create new Project</Button>
-      </p>
+      </div>
     </div>
   );
 };
