@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Input as ShadcnInput } from "@/components/ui/input";
 import Modal from "./Modal";
 import { Button } from "./ui/button";
@@ -16,27 +16,33 @@ type NewProjectProps = {
 
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const Title = useRef<HTMLInputElement>(null);
+  const Description = useRef<HTMLTextAreaElement>(null);
   const [dueDate, setDueDate] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent) {
     e.preventDefault();
 
-    if (title.trim() === "" || description.trim() === "" || dueDate.trim() === "") {
+    const EnteredTitle = Title.current?.value ?? "";
+    const EnteredDes = Description.current?.value ?? "";
+
+    if (
+      EnteredTitle.trim() === "" ||
+      EnteredDes.trim() === "" ||
+      dueDate.trim() === ""
+    ) {
       setIsModalOpen(true);
       return;
     }
 
     onAdd({
-      title,
-      description,
+      title: EnteredTitle,
+      description: EnteredDes,
       duedate: dueDate,
     });
 
-    // Clear form fields
-    setTitle("");
-    setDescription("");
+    if (Title.current) Title.current.value = "";
+    if (Description.current) Description.current.value = "";
     setDueDate("");
   }
 
@@ -47,14 +53,16 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     return `${year}-${month}-${day}`;
   }
 
-  const handleDayClick = (date: Date) => {
-    setDueDate(formatDate(date));
-  };
-
   const dayPickerInitialProps: DayPickerProps = {
     mode: "single",
     selected: dueDate ? new Date(dueDate) : undefined,
-    onDayClick: handleDayClick,
+    onSelect: (date: Date | undefined) => {
+      if (date) {
+        setDueDate(formatDate(date));
+      } else {
+        setDueDate("");
+      }
+    },
   };
 
   return (
@@ -67,7 +75,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         message="Oops... Looks like you forgot to enter a value. Please make sure you provided a valid value for every input field."
       />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
-        <ul className="flex items-center justify-end gap-4 my-4">
+        <menu className="flex items-center justify-end gap-4 my-4">
           <li>
             <Button
               className="text-stone-800 hover:text-stone-950"
@@ -87,7 +95,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               Save
             </Button>
           </li>
-        </ul>
+        </menu>
         <div>
           <div className="mb-4">
             <label htmlFor="title" className="block mb-1 text-stone-500 font-bold">
@@ -96,8 +104,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             <ShadcnInput
               type="text"
               id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              ref={Title}
               className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
             />
           </div>
@@ -107,8 +114,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             </label>
             <textarea
               id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              ref={Description}
               className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800 resize-none"
             />
           </div>
