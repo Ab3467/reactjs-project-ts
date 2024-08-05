@@ -13,8 +13,13 @@ type SelectedProProps = {
   tasks: TaskType[];
 };
 
-const SelectedPro: React.FC<SelectedProProps> = ({project,onDeleteProject,onAddTask,onDeleteTask,tasks,}) => {
-  
+const SelectedPro: React.FC<SelectedProProps> = ({
+  project,
+  onDeleteProject,
+  onAddTask,
+  onDeleteTask,
+  tasks,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDeleteConfirmation = () => {
@@ -39,7 +44,7 @@ const SelectedPro: React.FC<SelectedProProps> = ({project,onDeleteProject,onAddT
 
       {/* Thematic Break */}
       <hr className="my-6 border-0 h-px bg-stone-300" />
-      
+
       <NewTask onAddTask={onAddTask} />
 
       <div className="mt-8 h-96 overflow-y-auto">
