@@ -9,19 +9,19 @@ type Project = {
   title: string;
   description: string;
   duedate: string;
-}
+};
 
 type Task = {
   id: number;
   text: string;
   ProId: number | null;
-}
+};
 
 type ProjectState = {
   setProjectsId: number | null | undefined;
   projects: Project[];
   tasks: Task[];
-}
+};
 
 export default function App() {
   const [projectState, setProjectState] = useState<ProjectState>({
@@ -30,12 +30,20 @@ export default function App() {
     tasks: [],
   });
 
+  function handleStartAddPro() {
+    setProjectState((prevState) => ({
+      ...prevState,
+      setProjectsId: null,
+    }));
+  }
+
   function handleAddTask(text: string) {
     setProjectState((prevState) => {
       const TaskId = Math.random();
       const newTask: Task = {
         text: text,
-        ProId: prevState.setProjectsId !== undefined ? prevState.setProjectsId : -1, // Handle undefined case
+        ProId:
+          prevState.setProjectsId !== undefined ? prevState.setProjectsId : -1, // Handle undefined case
         id: TaskId,
       };
 
@@ -52,15 +60,6 @@ export default function App() {
       tasks: prevState.tasks.filter((task) => task.id !== id),
     }));
   }
-  
-
-  function handleStartAddPro() {
-    setProjectState((prevState)=>({
-      ...prevState,
-      setProjectsId : null ,
-    }));
-     
-  }
 
   function handleSelectProj(id: number) {
     setProjectState((prevState) => ({
@@ -69,11 +68,11 @@ export default function App() {
     }));
   }
 
-  function handleCancel(){
-    setProjectState((prevState)=>({
+  function handleCancel() {
+    setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId : undefined,
-    }))
+      setProjectsId: undefined,
+    }));
   }
 
   function handleDelete() {
@@ -109,18 +108,18 @@ export default function App() {
 
   if (projectState.setProjectsId === null) {
     content = <NewProject onAdd={handleAddProject} onCancel={handleCancel} />;
-  } 
-  else if(projectState.setProjectsId === undefined){
-    content = <NoProSelect onStartAddProject={handleStartAddPro}/>
-  }
-  else {
+  } else if (projectState.setProjectsId === undefined) {
+    content = <NoProSelect onStartAddProject={handleStartAddPro} />;
+  } else {
     content = (
       <SelectedPro
         project={selectedProject!}
         onDelete={handleDelete}
         onAddTask={handleAddTask}
         onDeleteTask={handleDeleteTask}
-        tasks={projectState.tasks.filter(task => task.ProId === projectState.setProjectsId)}
+        tasks={projectState.tasks.filter(
+          (task) => task.ProId === projectState.setProjectsId
+        )}
       />
     );
   }
