@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Tasks from "./Tasks";
+import Tasks from "./ClearedTasks";
 import { Button } from "./ui/button";
 import { Project, Task as TaskType } from "./Types";
 import Modal from "./Modal";
