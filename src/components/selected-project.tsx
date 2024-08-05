@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Tasks from "./cleared-tasks";
 import { Button } from "./ui/button";
 import { Project, Task as TaskType } from "./types";
-import Modal from "./modal";
+import Modal from "./Modal";
 import NewTask from "./new-task";
 
 type SelectedProProps = {
