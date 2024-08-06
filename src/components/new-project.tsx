@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
-import { Input as ShadcnInput } from "@/components/ui/input";
-import Modal from "../components/modal";
+import React, { useState } from "react";
+import Input from "./multi-type-input"; // Adjust the path as needed
+import Modal from "./modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
 import "react-day-picker/dist/style.css";
@@ -12,37 +12,30 @@ type NewProjectProps = {
     duedate: string;
   }) => void;
   onCancel: () => void;
-}
+};
 
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const Title = useRef<HTMLInputElement>(null);
-  const Description = useRef<HTMLTextAreaElement>(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent) {
     e.preventDefault();
 
-    const EnteredTitle = Title.current?.value ?? "";
-    const EnteredDes = Description.current?.value ?? "";
-
-    if (
-      EnteredTitle.trim() === "" ||
-      EnteredDes.trim() === "" ||
-      dueDate.trim() === ""
-    ) {
+    if (title.trim() === "" || description.trim() === "" || dueDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
 
     onAdd({
-      title: EnteredTitle,
-      description: EnteredDes,
+      title,
+      description,
       duedate: dueDate,
     });
 
-    if (Title.current) Title.current.value = "";
-    if (Description.current) Description.current.value = "";
+    setTitle("");
+    setDescription("");
     setDueDate("");
   }
 
@@ -97,27 +90,20 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
           </li>
         </menu>
         <div>
-          <div className="mb-4">
-            <label htmlFor="title" className="block mb-1 text-stone-500 font-bold">
-              Title
-            </label>
-            <ShadcnInput
-              type="text"
-              id="title"
-              ref={Title}
-              className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="description" className="block mb-1 text-stone-500 font-bold">
-              Description
-            </label>
-            <textarea
-              id="description"
-              ref={Description}
-              className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800 resize-none"
-            />
-          </div>
+          <Input
+            type="text"
+            id="title"
+            label="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <Input
+            type="textarea"
+            id="description"
+            label="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
           <div className="mb-4">
             <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
               Due Date
