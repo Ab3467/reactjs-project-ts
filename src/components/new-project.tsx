@@ -23,29 +23,21 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     e.preventDefault();
 
     const form = e.currentTarget;
-    const titleInput = form.querySelector<HTMLInputElement>(
-      "input[name='title']"
-    );
-    const descriptionInput = form.querySelector<HTMLTextAreaElement>(
-      "textarea[name='description']"
-    );
 
-    if (!titleInput || !descriptionInput) {
-      console.error("Form elements not found");
-      return;
-    }
+    const titleInput = form.elements.namedItem("title") as HTMLInputElement;
+    const descriptionInput = form.elements.namedItem(
+      "description"
+    ) as HTMLTextAreaElement;
 
-    const title = titleInput.value;
-    const description = descriptionInput.value;
+    const title = titleInput?.value.trim() || "";
+    const description = descriptionInput?.value.trim() || "";
 
-    if (
-      title.trim() === "" ||
-      description.trim() === "" ||
-      selectedDate.trim() === ""
-    ) {
+    if (title === "" || description === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
+
+    console.log("Form submitted with:", { title, description, selectedDate });
 
     onAdd({
       title,
