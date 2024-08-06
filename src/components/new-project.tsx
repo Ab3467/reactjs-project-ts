@@ -18,34 +18,32 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [formValues, setFormValues] = useState({
+    title: "",
+    description: "",
+  });
 
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const form = e.currentTarget;
-
-    const titleInput = form.elements.namedItem("title") as HTMLInputElement;
-    const descriptionInput = form.elements.namedItem(
-      "description"
-    ) as HTMLTextAreaElement;
-
-    const title = titleInput?.value.trim() || "";
-    const description = descriptionInput?.value.trim() || "";
-
-    if (title === "" || description === "" || selectedDate.trim() === "") {
+    // Check if all fields are filled
+    if (
+      formValues.title.trim() === "" ||
+      formValues.description.trim() === "" ||
+      selectedDate.trim() === ""
+    ) {
       setIsModalOpen(true);
       return;
     }
 
-
-
     onAdd({
-      title,
-      description,
+      title: formValues.title,
+      description: formValues.description,
       duedate: selectedDate,
     });
 
-    form.reset();
+    // Reset form values
+    setFormValues({ title: "", description: "" });
     setSelectedDate("");
   }
 
@@ -108,6 +106,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               id="title"
               name="title"
               placeholder="Enter the title"
+              value={formValues.title}
+              onChange={(e) =>
+                setFormValues({ ...formValues, title: e.target.value })
+              }
             />
           </div>
           <div className="mb-4">
@@ -123,6 +125,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               placeholder="Enter the description"
               rows={4}
               className="resize-none"
+              value={formValues.description}
+              onChange={(e) =>
+                setFormValues({ ...formValues, description: e.target.value })
+              }
             />
           </div>
           <div className="mb-4">
