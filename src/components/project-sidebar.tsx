@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { Project } from "../components/types";
-import { twMerge } from 'tailwind-merge'; // Import twMerge
+import { cn } from "@/lib/utils"; 
 
 type ProSideBarProps = {
   onSelectProject: (id: number) => void;
@@ -26,11 +26,20 @@ const ProSideBar: React.FC<ProSideBarProps> = ({
       </div>
       <ul className="mt-8">
         {projects.map((project) => {
-          const cssClasses = twMerge(
+
+          const cssClasses = cn(
             "w-full text-left px-2 py-1 rounded-sm my-1 hover:bg-stone-800 hover:text-stone-200",
             project.id === selectedProId && "bg-stone-800 text-stone-200",
             project.id !== selectedProId && "text-stone-400"
           );
+          
+          // Use cssClasses in your JSX
+          return (
+            <div className={cssClasses}>
+              {/* Your content here */}
+            </div>
+          );
+          
 
           return (
             <li key={project.id}>
