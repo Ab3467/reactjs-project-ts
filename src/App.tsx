@@ -19,10 +19,10 @@ export default function App() {
   });
 
   function handleStartAddProject() {
-    setProjectState((prevState) => ({
-      ...prevState,
-      setProjectsId: null, // This will trigger showing NewProject
-    }));
+   setProjectState((prevState)=>({
+    ...prevState,
+    setProjectsId: null
+  }))
   }
 
   function handleAddProject(projectData: Omit<Project, "id">) {
