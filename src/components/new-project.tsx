@@ -18,18 +18,29 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [formValues, setFormValues] = useState({
-    title: "",
-    description: "",
-  });
 
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Check if all fields are filled
+    const form = e.currentTarget;
+    const titleInput = form.querySelector<HTMLInputElement>(
+      "input[name='title']"
+    );
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>(
+      "textarea[name='description']"
+    );
+
+    if (!titleInput || !descriptionInput) {
+      console.error("Form elements not found");
+      return;
+    }
+
+    const title = titleInput.value;
+    const description = descriptionInput.value;
+
     if (
-      formValues.title.trim() === "" ||
-      formValues.description.trim() === "" ||
+      title.trim() === "" ||
+      description.trim() === "" ||
       selectedDate.trim() === ""
     ) {
       setIsModalOpen(true);
@@ -37,13 +48,12 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     }
 
     onAdd({
-      title: formValues.title,
-      description: formValues.description,
+      title,
+      description,
       duedate: selectedDate,
     });
 
-    // Reset form values
-    setFormValues({ title: "", description: "" });
+    form.reset();
     setSelectedDate("");
   }
 
@@ -106,10 +116,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               id="title"
               name="title"
               placeholder="Enter the title"
-              value={formValues.title}
-              onChange={(e) =>
-                setFormValues({ ...formValues, title: e.target.value })
-              }
             />
           </div>
           <div className="mb-4">
@@ -125,10 +131,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               placeholder="Enter the description"
               rows={4}
               className="resize-none"
-              value={formValues.description}
-              onChange={(e) =>
-                setFormValues({ ...formValues, description: e.target.value })
-              }
             />
           </div>
           <div className="mb-4">
