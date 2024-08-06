@@ -28,7 +28,7 @@ const Modal: React.FC<ModalProps> = ({isOpen, onClose, onConfirm, title, message
         </AlertDialogHeader>
         <AlertDialogFooter>
           {onConfirm && (
-            <AlertDialogAction onClick={onConfirm} className="bg-red-600 text-white hover:bg-red-700">
+            <AlertDialogAction onClick={onConfirm} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
               Confirm
             </AlertDialogAction>
           )}
