@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";  // Import Shadcn Input component
+import { Textarea } from "./ui/textarea"; // Import Shadcn Textarea component
 import Modal from "./modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
@@ -17,15 +18,21 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-  });
 
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    
+    const form = e.currentTarget;
+    const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
 
-    const { title, description } = formData;
+    if (!titleInput || !descriptionInput) {
+      console.error("Form elements not found");
+      return;
+    }
+
+    const title = titleInput.value;
+    const description = descriptionInput.value;
 
     if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
@@ -38,7 +45,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: selectedDate,
     });
 
-    setFormData({ title: "", description: "" }); // Clear form data
+    form.reset(); // Reset the form
     setSelectedDate(""); // Clear the selected date
   }
 
@@ -93,13 +100,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             <label htmlFor="title" className="block mb-1 text-stone-500 font-bold">
               Title
             </label>
-            <input
+            <Input
               type="text"
               id="title"
               name="title"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
+              placeholder="Enter the title"
             />
           </div>
           <div className="mb-4">
@@ -109,8 +114,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             <Textarea
               id="description"
               name="description"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              placeholder="Enter the description"
               rows={4}
               className="resize-none"
             />
