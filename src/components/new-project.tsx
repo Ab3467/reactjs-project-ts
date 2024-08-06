@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Input from "./multi-type-input";
 import Modal from "./modal";
 import { Button } from "./ui/button";
@@ -22,6 +22,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     description: ""
   });
 
+  // Handle form input changes
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = e.target;
     setFormValues((prev) => ({
@@ -30,28 +31,40 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     }));
   }
 
+  // Handle form submission
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { title, description } = formValues;
 
+    // Check if all fields are filled
     if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
 
+    // Call the onAdd prop with the form data
     onAdd({
       title,
       description,
       duedate: selectedDate,
     });
 
+    // Reset the form and state
     setFormValues({
       title: "",
       description: ""
     });
     setSelectedDate(""); // Clear the selected date
   }
+
+  // Handle Enter key press for form submission
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent default form submission
+      handleSaveButton(e as unknown as React.FormEvent<HTMLFormElement>);
+    }
+  }, []);
 
   function formatDate(date: Date): string {
     const year = date.getFullYear();
@@ -81,7 +94,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         title="Invalid Input"
         message="Oops... Looks like you forgot to enter a value. Please make sure you provided a valid value for every input field."
       />
-      <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
+      <form
+        className="w-[35rem] mt-16"
+        onSubmit={handleSaveButton}
+        onKeyDown={handleKeyDown} // Add keydown listener to form
+      >
         <div className="flex items-center justify-end gap-4 my-4">
           <Button
             className="text-stone-800 hover:text-stone-950"
