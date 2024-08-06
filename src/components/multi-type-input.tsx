@@ -6,7 +6,7 @@ type InputProps = {
   label: string;
   id: string;
   value?: string;
-  name? : string;
+  name?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
@@ -21,7 +21,7 @@ const Input: React.FC<InputProps> = ({ type, label, id, value, name, onChange })
           id={id}
           value={value}
           onChange={onChange}
-          rows={4} // Specify the number of rows
+          rows={4}
           className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800 resize-none"
         />
       ) : (

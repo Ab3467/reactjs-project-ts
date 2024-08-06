@@ -17,21 +17,30 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [formValues, setFormValues] = useState({
+    title: "",
+    description: ""
+  });
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  }
 
   function handleSaveButton(e: React.FormEvent) {
     e.preventDefault();
 
-    const form = e.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
-    const title = formData.get("title")?.toString().trim() || "";
-    const description = formData.get("description")?.toString().trim() || "";
+    const { title, description } = formValues;
     const dueDate = selectedDate;
 
     console.log("Title:", title);
     console.log("Description:", description);
     console.log("Due Date:", dueDate);
 
-    if (title === "" || description === "" || dueDate.trim() === "") {
+    if (title.trim() === "" || description.trim() === "" || dueDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
@@ -42,7 +51,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: dueDate,
     });
 
-    form.reset(); // Reset the form fields
+    setFormValues({
+      title: "",
+      description: ""
+    });
     setSelectedDate(""); // Clear the selected date
   }
 
@@ -102,12 +114,16 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             id="title"
             name="title"
             label="Title"
+            value={formValues.title}
+            onChange={handleInputChange}
           />
           <Input
             type="textarea"
             id="description"
             name="description"
             label="Description"
+            value={formValues.description}
+            onChange={handleInputChange}
           />
           <div className="mb-4">
             <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
