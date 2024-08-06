@@ -20,15 +20,12 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
 
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); 
-
-    // Get form elements using form's elements property
     const form = e.currentTarget;
     const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
     const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
 
     if (!titleInput || !descriptionInput) {
-      // Handle case where form elements are not found
-      console.error("Form elements not found");
+      alert("Form elements not found");
       return;
     }
 
@@ -46,8 +43,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: selectedDate,
     });
 
-    form.reset(); // Reset the form
-    setSelectedDate(""); // Clear the selected date
+    form.reset(); 
+    setSelectedDate(""); 
   }
 
   function formatDate(date: Date): string {
