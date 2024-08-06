@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Tasks from "./cleared-tasks";
 import { Button } from "./ui/button";
-import { Project, Task as TaskType } from "../components/Types.ts";
-import Modal from "../components/Modal.tsx"
+import { Project, Task as TaskType } from "../components/types.ts";
+import Modal from "../components/modal.tsx"
 import NewTask from "./new-task";
 
 type SelectedProProps = {

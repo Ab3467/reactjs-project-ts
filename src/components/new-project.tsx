@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Input as ShadcnInput } from "@/components/ui/input";
-import Modal from "../components/Modal";
+import Modal from "../components/modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
 import "react-day-picker/dist/style.css";
