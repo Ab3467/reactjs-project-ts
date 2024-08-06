@@ -21,13 +21,13 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Get form elements
+    
     const form = e.currentTarget;
     const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
     const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
 
     if (!titleInput || !descriptionInput) {
-      // Handle case where form elements are not found
+      
       console.error("Form elements not found");
       return;
     }
