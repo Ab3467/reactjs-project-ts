@@ -45,8 +45,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: selectedDate,
     });
 
-    form.reset(); // Reset the form
-    setSelectedDate(""); // Clear the selected date
+    form.reset();
+    setSelectedDate(""); 
   }
 
   function formatDate(date: Date): string {
