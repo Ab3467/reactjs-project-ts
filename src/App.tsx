@@ -3,19 +3,7 @@ import ProSideBar from "./components/project-sidebar";
 import NoProSelect from "./components/no-project-selected";
 import NewProject from "./components/new-project";
 import SelectedProject from "./components/selected-project";
-
-type Project = {
-  id: number;
-  title: string;
-  description: string;
-  duedate: string;
-};
-
-type Task = {
-  id: number;
-  text: string;
-  ProId: number | null;
-};
+import { Project, Task } from "./components/types"; // Adjust the import path as needed
 
 type ProjectState = {
   setProjectsId: number | null | undefined;
@@ -33,7 +21,7 @@ export default function App() {
   function handleStartAddPro() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: null,
+      setProjectsId: null, // This will trigger showing NewProject
     }));
   }
 
@@ -46,7 +34,7 @@ export default function App() {
       };
       return {
         ...prevState,
-        setProjectsId: undefined,
+        setProjectsId: undefined, // Reset to no project selected after adding
         projects: [...prevState.projects, newPro],
       };
     });
@@ -55,9 +43,9 @@ export default function App() {
   function handleDeleteProject() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined,
+      setProjectsId: undefined, // Reset to no project selected after deleting
       projects: prevState.projects.filter(
-        (project) => project.id !== projectState.setProjectsId
+        (project) => project.id !== prevState.setProjectsId
       ),
     }));
   }
@@ -95,12 +83,12 @@ export default function App() {
   function handleCancel() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: undefined,
+      setProjectsId: undefined, // Reset to no project selected on cancel
     }));
   }
 
   const selectedProject = projectState.projects.find(
-    (project) => project.id == projectState.setProjectsId
+    (project) => project.id === projectState.setProjectsId
   );
 
   return (
@@ -111,16 +99,22 @@ export default function App() {
         projects={projectState.projects}
         selectedProId={projectState.setProjectsId}
       />
-      {projectState.setProjectsId === null && <NewProject onAdd={handleAddProject} onCancel={handleCancel} />}
-      {projectState.setProjectsId !== null && projectState.setProjectsId === undefined ? <NoProSelect onStartAddProject={handleStartAddPro} />:<SelectedProject
-        project={selectedProject!}
-        onDeleteProject={handleDeleteProject}
-        onAddTask={handleAddTask}
-        onDeleteTask={handleDeleteTask}
-        tasks={projectState.tasks.filter(
-          (task) => task.ProId === projectState.setProjectsId
-        )}
-      />}
+      {projectState.setProjectsId === null && (
+        <NewProject onAdd={handleAddProject} onCancel={handleCancel} />
+      )}
+      {projectState.setProjectsId === undefined ? (
+        <NoProSelect onStartAddProject={handleStartAddPro} />
+      ) : (
+        <SelectedProject
+          project={selectedProject!}
+          onDeleteProject={handleDeleteProject}
+          onAddTask={handleAddTask}
+          onDeleteTask={handleDeleteTask}
+          tasks={projectState.tasks.filter(
+            (task) => task.ProId === projectState.setProjectsId
+          )}
+        />
+      )}
     </main>
   );
 }
