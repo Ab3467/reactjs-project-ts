@@ -38,6 +38,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     }
 
 
+
     onAdd({
       title,
       description,
