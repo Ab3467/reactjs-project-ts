@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";  
+import { Textarea } from "./ui/textarea"; 
 import Modal from "./modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
@@ -21,33 +21,38 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
+  // Handles form submission
+  const handleSaveButton = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Validation
     if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
 
+    // Submit form data
     onAdd({
       title,
       description,
       duedate: selectedDate,
     });
 
-    // Reset state and form fields
+    // Reset form and state
     setTitle("");
     setDescription("");
     setSelectedDate("");
-  }
+  };
 
-  function formatDate(date: Date): string {
+  // Formats date as YYYY-MM-DD
+  const formatDate = (date: Date): string => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
-  }
+  };
 
+  // DayPicker initial properties
   const dayPickerInitialProps: DayPickerProps = {
     mode: "single",
     selected: selectedDate ? new Date(selectedDate) : undefined,
