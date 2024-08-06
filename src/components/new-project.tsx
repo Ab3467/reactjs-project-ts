@@ -19,11 +19,18 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [selectedDate, setSelectedDate] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault(); 
 
-    const form = e.target as HTMLFormElement;
-    const titleInput = form.elements.namedItem("title") as HTMLInputElement;
-    const descriptionInput = form.elements.namedItem("description") as HTMLTextAreaElement;
+    // Get form elements using form's elements property
+    const form = e.currentTarget;
+    const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
+
+    if (!titleInput || !descriptionInput) {
+      // Handle case where form elements are not found
+      console.error("Form elements not found");
+      return;
+    }
 
     const title = titleInput.value;
     const description = descriptionInput.value;
