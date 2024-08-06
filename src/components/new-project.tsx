@@ -17,26 +17,18 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [formValues, setFormValues] = useState({
-    title: "",
-    description: ""
-  });
 
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  }
+  function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault(); // Prevent default form submission
 
-  function handleSaveButton(e: React.FormEvent) {
-    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const titleInput = form.elements.namedItem("title") as HTMLInputElement;
+    const descriptionInput = form.elements.namedItem("description") as HTMLTextAreaElement;
 
-    const { title, description } = formValues;
-    const dueDate = selectedDate;
+    const title = titleInput.value;
+    const description = descriptionInput.value;
 
-    if (title.trim() === "" || description.trim() === "" || dueDate.trim() === "") {
+    if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
@@ -44,13 +36,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     onAdd({
       title,
       description,
-      duedate: dueDate,
+      duedate: selectedDate,
     });
 
-    setFormValues({
-      title: "",
-      description: ""
-    });
+    form.reset(); // Reset the form
     setSelectedDate(""); // Clear the selected date
   }
 
@@ -83,43 +72,37 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         message="Oops... Looks like you forgot to enter a value. Please make sure you provided a valid value for every input field."
       />
       <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
-        <menu className="flex items-center justify-end gap-4 my-4">
-          <li>
-            <Button
-              className="text-stone-800 hover:text-stone-950"
-              onClick={onCancel}
-              type="button"
-              variant="ghost"
-            >
-              Cancel
-            </Button>
-          </li>
-          <li>
-            <Button
-              type="submit"
-              className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950"
-              variant="default"
-            >
-              Save
-            </Button>
-          </li>
-        </menu>
+        <div className="flex items-center justify-end gap-4 my-4">
+          <Button
+            className="text-stone-800 hover:text-stone-950"
+            onClick={onCancel}
+            type="button"
+            variant="ghost"
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            className="px-6 py-2 rounded-md bg-stone-800 text-stone-50 hover:bg-stone-950"
+            variant="default"
+          >
+            Save
+          </Button>
+        </div>
         <div>
           <Input
             type="text"
             id="title"
             name="title"
             label="Title"
-            value={formValues.title}
-            onChange={handleInputChange}
+            defaultValue=""
           />
           <Input
             type="textarea"
             id="description"
             name="description"
             label="Description"
-            value={formValues.description}
-            onChange={handleInputChange}
+            defaultValue=""
           />
           <div className="mb-4">
             <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
