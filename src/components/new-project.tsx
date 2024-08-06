@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import Input from "./multi-type-input";
 import Modal from "./modal";
 import { Button } from "./ui/button";
@@ -17,54 +17,38 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [formValues, setFormValues] = useState({
-    title: "",
-    description: ""
-  });
 
-  // Handle form input changes
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const { name, value } = e.target;
-    setFormValues((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  }
-
-  // Handle form submission
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const { title, description } = formValues;
+    // Get form elements
+    const form = e.currentTarget;
+    const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
 
-    // Check if all fields are filled
+    if (!titleInput || !descriptionInput) {
+      // Handle case where form elements are not found
+      console.error("Form elements not found");
+      return;
+    }
+
+    const title = titleInput.value;
+    const description = descriptionInput.value;
+
     if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
 
-    // Call the onAdd prop with the form data
     onAdd({
       title,
       description,
       duedate: selectedDate,
     });
 
-    // Reset the form and state
-    setFormValues({
-      title: "",
-      description: ""
-    });
+    form.reset(); // Reset the form
     setSelectedDate(""); // Clear the selected date
   }
-
-  // Handle Enter key press for form submission
-  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLFormElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault(); // Prevent default form submission
-      handleSaveButton(e as unknown as React.FormEvent<HTMLFormElement>);
-    }
-  }, []);
 
   function formatDate(date: Date): string {
     const year = date.getFullYear();
@@ -94,11 +78,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         title="Invalid Input"
         message="Oops... Looks like you forgot to enter a value. Please make sure you provided a valid value for every input field."
       />
-      <form
-        className="w-[35rem] mt-16"
-        onSubmit={handleSaveButton}
-        onKeyDown={handleKeyDown} // Add keydown listener to form
-      >
+      <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <div className="flex items-center justify-end gap-4 my-4">
           <Button
             className="text-stone-800 hover:text-stone-950"
@@ -122,16 +102,14 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             id="title"
             name="title"
             label="Title"
-            value={formValues.title}
-            onChange={handleInputChange}
+            
           />
           <Input
             type="textarea"
             id="description"
             name="description"
             label="Description"
-            value={formValues.description}
-            onChange={handleInputChange}
+         
           />
           <div className="mb-4">
             <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
