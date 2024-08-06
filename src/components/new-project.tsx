@@ -16,14 +16,18 @@ type NewProjectProps = {
 
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent) {
     e.preventDefault();
 
-    if (title.trim() === "" || description.trim() === "" || dueDate.trim() === "") {
+    const form = e.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
+    const title = formData.get("title")?.toString().trim() || "";
+    const description = formData.get("description")?.toString().trim() || "";
+    const dueDate = selectedDate;
+
+    if (title === "" || description === "" || dueDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
@@ -34,9 +38,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: dueDate,
     });
 
-    setTitle("");
-    setDescription("");
-    setDueDate("");
+    form.reset(); // Reset the form fields
+    setSelectedDate(""); // Clear the selected date
   }
 
   function formatDate(date: Date): string {
@@ -48,12 +51,12 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
 
   const dayPickerInitialProps: DayPickerProps = {
     mode: "single",
-    selected: dueDate ? new Date(dueDate) : undefined,
+    selected: selectedDate ? new Date(selectedDate) : undefined,
     onSelect: (date: Date | undefined) => {
       if (date) {
-        setDueDate(formatDate(date));
+        setSelectedDate(formatDate(date));
       } else {
-        setDueDate("");
+        setSelectedDate("");
       }
     },
   };
@@ -93,16 +96,14 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
           <Input
             type="text"
             id="title"
+            name="title"
             label="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
           />
           <Input
             type="textarea"
             id="description"
+            name="description"
             label="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
           />
           <div className="mb-4">
             <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">

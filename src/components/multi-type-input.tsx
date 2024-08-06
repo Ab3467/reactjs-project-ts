@@ -6,10 +6,11 @@ type InputProps = {
   label: string;
   id: string;
   value?: string;
+  name? : string;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
-const Input: React.FC<InputProps> = ({ type, label, id, value, onChange }) => {
+const Input: React.FC<InputProps> = ({ type, label, id, value, name, onChange }) => {
   return (
     <div className="mb-4">
       <label htmlFor={id} className="block mb-1 text-stone-500 font-bold">
@@ -29,6 +30,7 @@ const Input: React.FC<InputProps> = ({ type, label, id, value, onChange }) => {
           id={id}
           value={value}
           onChange={onChange}
+          name={name}
           className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
         />
       )}
