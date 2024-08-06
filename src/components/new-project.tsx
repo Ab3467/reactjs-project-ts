@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Input } from "./ui/input";  
-import { Textarea } from "./ui/textarea"; 
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 import Modal from "./modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
@@ -18,21 +18,11 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
-    const form = e.currentTarget;
-    const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
-    const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
-
-    if (!titleInput || !descriptionInput) {
-      console.error("Form elements not found");
-      return;
-    }
-
-    const title = titleInput.value;
-    const description = descriptionInput.value;
 
     if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
@@ -45,8 +35,9 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: selectedDate,
     });
 
-    form.reset();
-    setSelectedDate(""); 
+    setTitle("");
+    setDescription("");
+    setSelectedDate("");
   }
 
   function formatDate(date: Date): string {
@@ -105,6 +96,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               id="title"
               name="title"
               placeholder="Enter the title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -117,6 +110,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               placeholder="Enter the description"
               rows={4}
               className="resize-none"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="mb-4">
