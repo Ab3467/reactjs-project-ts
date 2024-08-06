@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Input } from "./ui/input";  // Import Shadcn Input component
-import { Textarea } from "./ui/textarea"; // Import Shadcn Textarea component
+import { Input } from "./ui/input";  
+import { Textarea } from "./ui/textarea"; 
 import Modal from "./modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
