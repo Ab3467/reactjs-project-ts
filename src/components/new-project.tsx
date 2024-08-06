@@ -27,6 +27,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     const description = formData.get("description")?.toString().trim() || "";
     const dueDate = selectedDate;
 
+    console.log("Title:", title);
+    console.log("Description:", description);
+    console.log("Due Date:", dueDate);
+
     if (title === "" || description === "" || dueDate.trim() === "") {
       setIsModalOpen(true);
       return;
