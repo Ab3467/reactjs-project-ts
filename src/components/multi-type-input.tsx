@@ -1,6 +1,5 @@
 import React from "react";
-import { Input as ShadcnInput } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "./ui/textarea";
 
 type InputProps = {
   type: "text" | "textarea" | "date";
@@ -20,18 +19,19 @@ const Input: React.FC<InputProps> = ({ type, label, id, value, name, onChange })
       {type === "textarea" ? (
         <Textarea
           id={id}
+          name={name}
           value={value}
           onChange={onChange}
           rows={4}
           className="resize-none"
         />
       ) : (
-        <ShadcnInput
+        <input
           type={type}
           id={id}
+          name={name}
           value={value}
           onChange={onChange}
-          name={name}
           className="w-full px-4 py-2 rounded-md bg-stone-100 text-stone-800"
         />
       )}
