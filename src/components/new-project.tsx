@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Input } from "./ui/input";  
-import { Textarea } from "./ui/textarea"; 
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 import Modal from "./modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
@@ -21,10 +21,14 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
 
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    
+
     const form = e.currentTarget;
-    const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
-    const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
+    const titleInput = form.querySelector<HTMLInputElement>(
+      "input[name='title']"
+    );
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>(
+      "textarea[name='description']"
+    );
 
     if (!titleInput || !descriptionInput) {
       console.error("Form elements not found");
@@ -34,7 +38,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     const title = titleInput.value;
     const description = descriptionInput.value;
 
-    if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
+    if (
+      title.trim() === "" ||
+      description.trim() === "" ||
+      selectedDate.trim() === ""
+    ) {
       setIsModalOpen(true);
       return;
     }
@@ -46,13 +54,13 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     });
 
     form.reset();
-    setSelectedDate(""); 
+    setSelectedDate("");
   }
 
   function formatDate(date: Date): string {
     const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
 
@@ -70,7 +78,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
 
   return (
     <>
-      <Modal 
+      <Modal
         btnCaption="Ok"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
@@ -97,7 +105,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         </div>
         <div>
           <div className="mb-4">
-            <label htmlFor="title" className="block mb-1 text-stone-500 font-bold">
+            <label
+              htmlFor="title"
+              className="block mb-1 text-stone-500 font-bold"
+            >
               Title
             </label>
             <Input
@@ -108,7 +119,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="description" className="block mb-1 text-stone-500 font-bold">
+            <label
+              htmlFor="description"
+              className="block mb-1 text-stone-500 font-bold"
+            >
               Description
             </label>
             <Textarea
@@ -120,7 +134,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
+            <label
+              htmlFor="dueDate"
+              className="block mb-1 text-stone-500 font-bold"
+            >
               Due Date
             </label>
             <DayPicker {...dayPickerInitialProps} />
