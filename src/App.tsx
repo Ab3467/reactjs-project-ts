@@ -19,10 +19,10 @@ export default function App() {
   });
 
   function handleStartAddProject() {
-   setProjectState((prevState)=>({
-    ...prevState,
-    setProjectsId: null
-  }))
+    setProjectState((prevState) => ({
+      ...prevState,
+      setProjectsId: null, // Set to null to show the NewProject component
+    }));
   }
 
   function handleAddProject(projectData: Omit<Project, "id">) {
@@ -99,10 +99,9 @@ export default function App() {
         projects={projectState.projects}
         selectedProId={projectState.setProjectsId}
       />
-      {projectState.setProjectsId === null && (
+      {projectState.setProjectsId === null ? (
         <NewProject onAdd={handleAddProject} onCancel={handleCancel} />
-      )}
-      {projectState.setProjectsId === undefined ? (
+      ) : projectState.setProjectsId === undefined ? (
         <NoProSelect onStartAddProject={handleStartAddProject} />
       ) : (
         <SelectedProject
