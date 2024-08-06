@@ -17,23 +17,23 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [formValues, setFormValues] = useState({
+    title: "",
+    description: ""
+  });
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const { name, value } = e.target;
+    setFormValues((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  }
 
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Get form elements
-    const form = e.currentTarget;
-    const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
-    const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
-
-    if (!titleInput || !descriptionInput) {
-      // Handle case where form elements are not found
-      console.error("Form elements not found");
-      return;
-    }
-
-    const title = titleInput.value;
-    const description = descriptionInput.value;
+    const { title, description } = formValues;
 
     if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
@@ -46,7 +46,10 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: selectedDate,
     });
 
-    form.reset(); // Reset the form
+    setFormValues({
+      title: "",
+      description: ""
+    });
     setSelectedDate(""); // Clear the selected date
   }
 
@@ -102,14 +105,16 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             id="title"
             name="title"
             label="Title"
-            defaultValue=""
+            value={formValues.title}
+            onChange={handleInputChange}
           />
           <Input
             type="textarea"
             id="description"
             name="description"
             label="Description"
-            defaultValue=""
+            value={formValues.description}
+            onChange={handleInputChange}
           />
           <div className="mb-4">
             <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
