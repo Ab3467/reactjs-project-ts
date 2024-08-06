@@ -35,6 +35,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: selectedDate,
     });
 
+    // Reset state and form fields
     setTitle("");
     setDescription("");
     setSelectedDate("");
