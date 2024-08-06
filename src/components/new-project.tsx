@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";  
+import { Textarea } from "./ui/textarea"; 
 import Modal from "./modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
@@ -18,14 +18,21 @@ type NewProjectProps = {
 const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
 
-  const handleSaveButton = (e: React.FormEvent<HTMLFormElement>) => {
+  function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     
-    // Debugging log
-    console.log("Form submitted with:", { title, description, selectedDate });
+    const form = e.currentTarget;
+    const titleInput = form.querySelector<HTMLInputElement>("input[name='title']");
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>("textarea[name='description']");
+
+    if (!titleInput || !descriptionInput) {
+      console.error("Form elements not found");
+      return;
+    }
+
+    const title = titleInput.value;
+    const description = descriptionInput.value;
 
     if (title.trim() === "" || description.trim() === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
@@ -38,17 +45,16 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       duedate: selectedDate,
     });
 
-    setTitle("");
-    setDescription("");
-    setSelectedDate("");
-  };
+    form.reset();
+    setSelectedDate(""); 
+  }
 
-  const formatDate = (date: Date): string => {
+  function formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
-  };
+  }
 
   const dayPickerInitialProps: DayPickerProps = {
     mode: "single",
@@ -99,8 +105,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               id="title"
               name="title"
               placeholder="Enter the title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -113,8 +117,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               placeholder="Enter the description"
               rows={4}
               className="resize-none"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="mb-4">
