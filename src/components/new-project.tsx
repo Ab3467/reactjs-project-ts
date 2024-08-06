@@ -37,7 +37,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       return;
     }
 
-    console.log("Form submitted with:", { title, description, selectedDate });
 
     onAdd({
       title,
