@@ -27,15 +27,15 @@ export default function App() {
 
   function handleAddProject(projectData: Omit<Project, "id">) {
     setProjectState((prevState) => {
-      const ProjectId = Math.random();
-      const newPro: Project = {
+      const projectId = Math.random();
+      const newProject: Project = {
         ...projectData,
-        id: ProjectId,
+        id: projectId,
       };
       return {
         ...prevState,
         setProjectsId: undefined, // Reset to no project selected after adding
-        projects: [...prevState.projects, newPro],
+        projects: [...prevState.projects, newProject],
       };
     });
   }
@@ -52,10 +52,10 @@ export default function App() {
 
   function handleAddTask(text: string) {
     setProjectState((prevTasks) => {
-      const TaskId = Math.random();
+      const taskId = Math.random();
       const newTask: Task = {
         text: text,
-        id: TaskId,
+        id: taskId,
         ProId:
           prevTasks.setProjectsId !== undefined ? prevTasks.setProjectsId : -1,
       };
