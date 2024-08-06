@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "./multi-type-input"; // Adjust the path as needed
+import Input from "./multi-type-input";
 import Modal from "./modal";
 import { Button } from "./ui/button";
 import { DayPicker, DayPickerProps } from "react-day-picker";
@@ -35,10 +35,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
 
     const { title, description } = formValues;
     const dueDate = selectedDate;
-
-    console.log("Title:", title);
-    console.log("Description:", description);
-    console.log("Due Date:", dueDate);
 
     if (title.trim() === "" || description.trim() === "" || dueDate.trim() === "") {
       setIsModalOpen(true);
