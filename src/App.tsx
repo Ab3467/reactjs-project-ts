@@ -18,7 +18,7 @@ export default function App() {
     tasks: [],
   });
 
-  function handleStartAddPro() {
+  function handleStartAddProject() {
     setProjectState((prevState) => ({
       ...prevState,
       setProjectsId: null, // This will trigger showing NewProject
@@ -95,7 +95,7 @@ export default function App() {
     <main className="h-screen my-8 flex gap-8 mb-0 font-serif">
       <ProSideBar
         onSelectProject={handleSelectProject}
-        onStartAddProject={handleStartAddPro}
+        onStartAddProject={handleStartAddProject}
         projects={projectState.projects}
         selectedProId={projectState.setProjectsId}
       />
@@ -103,7 +103,7 @@ export default function App() {
         <NewProject onAdd={handleAddProject} onCancel={handleCancel} />
       )}
       {projectState.setProjectsId === undefined ? (
-        <NoProSelect onStartAddProject={handleStartAddPro} />
+        <NoProSelect onStartAddProject={handleStartAddProject} />
       ) : (
         <SelectedProject
           project={selectedProject!}
