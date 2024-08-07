@@ -22,7 +22,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const form = e.currentTarget;
+    const form = e.currentTarget;    // Access the form
 
     const titleInput = form.elements.namedItem("title") as HTMLInputElement;
     const descriptionInput = form.elements.namedItem(
@@ -36,9 +36,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       setIsModalOpen(true);
       return;
     }
-
-
-
+    
     onAdd({
       title,
       description,
