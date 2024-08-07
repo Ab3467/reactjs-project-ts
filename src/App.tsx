@@ -81,10 +81,10 @@ export default function App() {
   }
 
   function handleCancel() {
-    setProjectState((prevState) => ({
+    setProjectState((prevState)=>({
       ...prevState,
-      setProjectsId: undefined, // Reset to no project selected on cancel
-    }));
+      setProjectsId: undefined
+    }))
   }
 
   const selectedProject = projectState.projects.find(
