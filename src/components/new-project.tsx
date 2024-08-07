@@ -22,7 +22,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const form = e.currentTarget;    // Access the form
+    const form = e.currentTarget;
 
     const titleInput = form.elements.namedItem("title") as HTMLInputElement;
     const descriptionInput = form.elements.namedItem(
@@ -36,7 +36,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       setIsModalOpen(true);
       return;
     }
-    
+
     onAdd({
       title,
       description,
@@ -66,6 +66,13 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     },
   };
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLFormElement>) {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Optional: prevent default form submission behavior if needed
+      handleSaveButton(e as unknown as React.FormEvent<HTMLFormElement>);
+    }
+  }
+
   return (
     <>
       <Modal
@@ -75,7 +82,11 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         title="Invalid Input"
         message="Oops... Looks like you forgot to enter a value. Please make sure you provided a valid value for every input field."
       />
-      <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
+      <form
+        className="w-[35rem] mt-16"
+        onSubmit={handleSaveButton}
+        onKeyDown={handleKeyDown}
+      >
         <div className="flex items-center justify-end gap-4 my-4">
           <Button
             className="text-stone-800 hover:text-stone-950"
