@@ -66,13 +66,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     },
   };
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLFormElement>) {
-    if (e.key === "Enter") {
-      e.preventDefault(); // Optional: prevent default form submission behavior if needed
-      handleSaveButton(e as unknown as React.FormEvent<HTMLFormElement>);
-    }
-  }
-
   return (
     <>
       <Modal
@@ -85,7 +78,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       <form
         className="w-[35rem] mt-16"
         onSubmit={handleSaveButton}
-        onKeyDown={handleKeyDown}
       >
         <div className="flex items-center justify-end gap-4 my-4">
           <Button
