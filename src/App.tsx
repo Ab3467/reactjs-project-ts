@@ -19,7 +19,7 @@ export default function App() {
   function handleStartAddProject() {
     setProjectState((prevState) => ({
       ...prevState,
-      setProjectsId: null, // Set to null to show the NewProject component
+      setProjectsId: null, 
     }));
   }
 
