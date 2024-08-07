@@ -1,9 +1,7 @@
-import { useState } from "react";
-import ProSideBar from "./components/project-sidebar";
-import NoProSelect from "./components/no-project-selected";
-import NewProject from "./components/new-project";
-import SelectedProject from "./components/selected-project";
-import { Project, Task } from "./components/types"; // Adjust the import path as needed
+import { useState } from 'react';
+import ProSideBar from './components/project-sidebar';
+import Content from './components/content'; // Adjust the import path as needed
+import { Project, Task } from './components/types'; // Adjust the import path as needed
 
 type ProjectState = {
   setProjectsId: number | null | undefined;
@@ -87,10 +85,6 @@ export default function App() {
     }))
   }
 
-  const selectedProject = projectState.projects.find(
-    (project) => project.id === projectState.setProjectsId
-  );
-
   return (
     <main className="h-screen my-8 flex gap-8 mb-0 font-serif">
       <ProSideBar
@@ -99,21 +93,15 @@ export default function App() {
         projects={projectState.projects}
         selectedProId={projectState.setProjectsId}
       />
-      {projectState.setProjectsId === null ? (
-        <NewProject onAdd={handleAddProject} onCancel={handleCancel} />
-      ) : projectState.setProjectsId === undefined ? (
-        <NoProSelect onStartAddProject={handleStartAddProject} />
-      ) : (
-        <SelectedProject
-          project={selectedProject!}
-          onDeleteProject={handleDeleteProject}
-          onAddTask={handleAddTask}
-          onDeleteTask={handleDeleteTask}
-          tasks={projectState.tasks.filter(
-            (task) => task.ProId === projectState.setProjectsId
-          )}
-        />
-      )}
+      <Content
+        projectState={projectState}
+        onAddProject={handleAddProject}
+        onDeleteProject={handleDeleteProject}
+        onAddTask={handleAddTask}
+        onDeleteTask={handleDeleteTask}
+        onStartAddProject={handleStartAddProject}
+        onCancel={handleCancel}
+      />
     </main>
   );
 }
