@@ -24,7 +24,7 @@ const ProSideBar: React.FC<ProSideBarProps> = ({
       <div>
         <Button onClick={onStartAddProject}>+ Add Project</Button>
       </div>
-      <ul className="mt-8">
+      <ul className="mt-8">  
         {projects.map((project) => {
           const cssClasses = cn(
             "w-full text-left px-2 py-1 rounded-sm my-1 hover:bg-stone-800 hover:text-stone-200",
