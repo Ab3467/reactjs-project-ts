@@ -22,12 +22,14 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Access the form elements
     const form = e.currentTarget;
-    const titleInput = form.querySelector<HTMLInputElement>('input[name="title"]');
-    const descriptionInput = form.querySelector<HTMLTextAreaElement>('textarea[name="description"]');
+    const titleInput = form.querySelector<HTMLInputElement>(
+      'input[name="title"]'
+    );
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>(
+      'textarea[name="description"]'
+    );
 
-    // Ensure the elements are not null and get their values
     if (!titleInput || !descriptionInput) {
       console.error("Form elements not found");
       return;
@@ -36,20 +38,17 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     const title = titleInput.value.trim();
     const description = descriptionInput.value.trim();
 
-    // Check for empty fields
     if (title === "" || description === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
 
-    // Call the onAdd function with the collected data
     onAdd({
       title,
       description,
       duedate: selectedDate,
     });
 
-    // Reset the form and clear the selected date
     form.reset();
     setSelectedDate("");
   }
