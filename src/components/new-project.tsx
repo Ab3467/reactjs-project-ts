@@ -68,7 +68,6 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     },
   };
 
-  // Add event listener for global Enter key press
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Enter") {
