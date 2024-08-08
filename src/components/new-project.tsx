@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import Modal from "./modal";
@@ -67,6 +67,29 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
       }
     },
   };
+
+  // Add event listener for global Enter key press
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Enter") {
+        const form = document.querySelector("form");
+        if (form) {
+          const titleInput = form.querySelector<HTMLInputElement>('input[name="title"]');
+          const descriptionInput = form.querySelector<HTMLTextAreaElement>('textarea[name="description"]');
+          const title = titleInput?.value.trim() || "";
+          const description = descriptionInput?.value.trim() || "";
+          if (title && description && selectedDate) {
+            handleSaveButton({ currentTarget: form, preventDefault: () => {} } as React.FormEvent<HTMLFormElement>);
+          }
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedDate]);
 
   return (
     <>
