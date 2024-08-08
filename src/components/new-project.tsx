@@ -26,8 +26,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     const titleInput = form.querySelector<HTMLInputElement>('input[name="title"]');
     const descriptionInput = form.querySelector<HTMLTextAreaElement>('textarea[name="description"]');
 
-    if (!titleInput || !descriptionInput) {
-      console.error("Form elements not found");
+    if(!titleInput || !descriptionInput){
+      alert("no element found");
       return;
     }
 
