@@ -22,27 +22,34 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
   function handleSaveButton(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    // Access the form elements
     const form = e.currentTarget;
+    const titleInput = form.querySelector<HTMLInputElement>('input[name="title"]');
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>('textarea[name="description"]');
 
-    const titleInput = form.elements.namedItem("title") as HTMLInputElement;
-    const descriptionInput = form.elements.namedItem(
-      "description"
-    ) as HTMLTextAreaElement;
+    // Ensure the elements are not null and get their values
+    if (!titleInput || !descriptionInput) {
+      console.error("Form elements not found");
+      return;
+    }
 
-    const title = titleInput?.value.trim() || "";
-    const description = descriptionInput?.value.trim() || "";
+    const title = titleInput.value.trim();
+    const description = descriptionInput.value.trim();
 
+    // Check for empty fields
     if (title === "" || description === "" || selectedDate.trim() === "") {
       setIsModalOpen(true);
       return;
     }
 
+    // Call the onAdd function with the collected data
     onAdd({
       title,
       description,
       duedate: selectedDate,
     });
 
+    // Reset the form and clear the selected date
     form.reset();
     setSelectedDate("");
   }
@@ -75,10 +82,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         title="Invalid Input"
         message="Oops... Looks like you forgot to enter a value. Please make sure you provided a valid value for every input field."
       />
-      <form
-        className="w-[35rem] mt-16"
-        onSubmit={handleSaveButton}
-      >
+      <form className="w-[35rem] mt-16" onSubmit={handleSaveButton}>
         <div className="flex items-center justify-end gap-4 my-4">
           <Button
             className="text-stone-800 hover:text-stone-950"
