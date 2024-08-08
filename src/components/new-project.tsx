@@ -23,12 +23,8 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
     e.preventDefault();
 
     const form = e.currentTarget;
-    const titleInput = form.querySelector<HTMLInputElement>(
-      'input[name="title"]'
-    );
-    const descriptionInput = form.querySelector<HTMLTextAreaElement>(
-      'textarea[name="description"]'
-    );
+    const titleInput = form.querySelector<HTMLInputElement>('input[name="title"]');
+    const descriptionInput = form.querySelector<HTMLTextAreaElement>('textarea[name="description"]');
 
     if (!titleInput || !descriptionInput) {
       console.error("Form elements not found");
@@ -101,10 +97,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         </div>
         <div>
           <div className="mb-4">
-            <label
-              htmlFor="title"
-              className="block mb-1 text-stone-500 font-bold"
-            >
+            <label htmlFor="title" className="block mb-1 text-stone-500 font-bold">
               Title
             </label>
             <Input
@@ -115,10 +108,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="description"
-              className="block mb-1 text-stone-500 font-bold"
-            >
+            <label htmlFor="description" className="block mb-1 text-stone-500 font-bold">
               Description
             </label>
             <Textarea
@@ -130,10 +120,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="dueDate"
-              className="block mb-1 text-stone-500 font-bold"
-            >
+            <label htmlFor="dueDate" className="block mb-1 text-stone-500 font-bold">
               Due Date
             </label>
             <DayPicker {...dayPickerInitialProps} />
