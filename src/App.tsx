@@ -78,8 +78,8 @@ export default function App() {
     }));
   }
 
-  function handleCancel() {
-    setProjectState((prevState)=>({
+  function handleCancel(){
+    setProjectState(prevState=> ({
       ...prevState,
       setProjectsId: undefined
     }))
