@@ -123,7 +123,7 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
               name="description"
               placeholder="Enter the description"
               rows={4}
-              // className="resize-none"
+              className="resize-none"
             />
           </div>
           <div className="mb-4">
