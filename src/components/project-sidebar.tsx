@@ -44,7 +44,7 @@ const ProSideBar: React.FC<ProSideBarProps> = ({
           );
         })}
       </ul>
-    </div>
+    </div>         
   );
 };
 
