@@ -27,14 +27,15 @@ const Modal: React.FC<ModalProps> = ({isOpen, onClose, onConfirm, title, message
           {message && <AlertDialogDescription className="text-black">{message}</AlertDialogDescription>}
         </AlertDialogHeader>
         <AlertDialogFooter>
+        <AlertDialogAction onClick={onClose} className="bg-black text-white hover:bg-gray-800">
+            Cancel
+          </AlertDialogAction>
           {onConfirm && (
             <AlertDialogAction onClick={onConfirm} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
               Confirm
             </AlertDialogAction>
           )}
-          <AlertDialogAction onClick={onClose} className="bg-black text-white hover:bg-gray-800">
-            Ok
-          </AlertDialogAction>
+         
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
