@@ -36,7 +36,7 @@ const SelectedProject: React.FC<SelectedProProps> = ({
       <div className="flex items-center gap-4">
         <h2 className="font-bold text-stone-500 text-lg">{project.title}</h2>
         <Button onClick={handleDeleteConfirmation} variant="secondary">
-          Delete Project
+          Delete Projectcs
         </Button>
       </div>
       <h3 className="text-stone-400 my-2">{project.description}</h3>
