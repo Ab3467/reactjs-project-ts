@@ -83,13 +83,13 @@ const NewProject: React.FC<NewProjectProps> = ({ onAdd, onCancel }) => {
         }
       }
     }
-
+  
     document.addEventListener("keydown", handleKeyDown)
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [selectedDate]);
-
+  }, [selectedDate]); // This line has missing dependency
+  
   return (
     <>
       <Modal
